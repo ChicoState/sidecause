@@ -1,0 +1,10 @@
+.git/
+.agents/
+.github/ISSUE_TEMPLATE/
+.next/
+coverage/
+infrastructure_plan.md
+node_modules/
+package-lock.json
+playwright-report/
+test-results/
