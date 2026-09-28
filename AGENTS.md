@@ -2,11 +2,12 @@
 
 ## Project status
 
-`infrastructure_plan.md` is the approved source of truth for the technical foundation. This repository now provides its planned local tooling, PostgreSQL/AIStor development services, Prisma migration setup, CI definitions, and smoke testing. It does not contain production application code.
+`infrastructure_plan.md` is the approved source of truth for the technical foundation. The v1 product contract and its implementation sequence are in `docs/product-spec.md` and `docs/implementation-plan.md`. This repository provides local tooling, PostgreSQL/AIStor development services, Prisma migration setup, CI definitions, smoke testing, and the initial App Router shell.
 
 ## Repository map
 
-- `app/` and `pages/`: Next.js front end/server code — not created yet.
+- `app/`: Next.js App Router shell (`layout.tsx`, `page.tsx`, and global styles).
+- `pages/`: unused; do not add Pages Router implementation.
 - `prisma/`: Prisma configuration and future migrations; no product models or migrations exist.
 - `tests/unit/`, `tests/integration/`, `tests/e2e/`: test locations; harness only.
 - `scripts/smoke.sh`: infrastructure-only service readiness test.
@@ -40,11 +41,11 @@ npm run verify
 npm run test:smoke
 ```
 
-`npm run build`, `npm run test:integration`, and `npm run test:e2e` need future application code/tests and should not be made green with placeholders. CI currently omits those commands for this reason.
+`npm run build` now verifies the App Router shell. `npm run test:integration` and `npm run test:e2e` need future application tests and should not be made green with placeholders. CI currently omits those application-test commands for this reason.
 
 ## Docker lifecycle
 
-Start local services with `npm run docker:up` and stop them with `npm run docker:down`. This retains named volumes. The smoke test uses a separate Compose project and removes its volumes automatically. Run `docker compose down --volumes` only when intentionally resetting local PostgreSQL and AIStor data. The profile-gated `app` container requires a future Next.js entrypoint.
+Start local services with `npm run docker:up` and stop them with `npm run docker:down`. This retains named volumes. The smoke test uses a separate Compose project and removes its volumes automatically. Run `docker compose down --volumes` only when intentionally resetting local PostgreSQL and AIStor data. Start the profile-gated application container with `docker compose --profile app up --build`.
 
 ## Change checklist
 

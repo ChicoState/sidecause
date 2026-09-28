@@ -2,13 +2,14 @@
 
 ## Status
 
-This repository contains the development foundation for a public-facing Next.js application. Production application code, routes, authentication, database models, migrations, and browser workflows have **not** been created yet. The approved decisions are recorded in [infrastructure_plan.md](infrastructure_plan.md).
+This repository contains the development foundation and initial App Router shell for a public-facing Next.js application. The root landing page, layout, and global styles are ready for feature development; authentication, database models, migrations, API routes, and browser workflows have **not** been created yet. The approved product decisions are recorded in [docs/product-spec.md](docs/product-spec.md) and [docs/implementation-plan.md](docs/implementation-plan.md).
 
 ## Repository map
 
 | Location                                          | Purpose                                                                         |
 | ------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `app/`, `pages/`                                  | Planned Next.js UI and server features; not created yet.                        |
+| `app/`                                            | Next.js App Router shell: root layout, landing page, and global styles.         |
+| `pages/`                                          | Unused; new application routes use the App Router only.                         |
 | `prisma/`                                         | Prisma connection and migration configuration; no product schema or migrations. |
 | `tests/unit/`, `tests/integration/`, `tests/e2e/` | Planned test locations; currently empty harnesses.                              |
 | `scripts/smoke.sh`                                | Isolated PostgreSQL and AIStor infrastructure smoke test.                       |
@@ -51,7 +52,13 @@ This repository contains the development foundation for a public-facing Next.js 
    npm run docker:down
    ```
 
-`npm run dev`, `npm run build`, and `npm run test:e2e` are configured for the future Next.js application but cannot succeed until application code and browser tests exist. The `app` Compose profile is intentionally not started by default for the same reason.
+Start the App Router shell locally with `npm run dev`, and create a production build with `npm run build`. `npm run test:e2e` remains deferred until browser workflows exist. The `app` Compose profile is intentionally not started by default; use `docker compose --profile app up --build` when you want to run the full local stack in containers.
+
+To install dependencies, start local services, and launch the development server in one command, run:
+
+```sh
+./scripts/dev.sh
+```
 
 ## Database migrations
 
@@ -65,7 +72,7 @@ Use `npm run prisma:deploy` only in a controlled deployment workflow against an 
 
 ## CI and GitHub configuration
 
-Pull requests run formatting, linting, TypeScript, the current Vitest coverage harness, Gitleaks, and CodeQL. The Next.js build, integration suite, and Playwright suite are deferred until application code exists. Configure branch protection to require those completed checks and a review.
+Pull requests run formatting, linting, TypeScript, the current Vitest coverage harness, Gitleaks, and CodeQL. The Next.js build is now available locally; the integration suite and Playwright suite remain deferred until their workflows exist. Configure branch protection to require those completed checks and a review.
 
 Dependabot checks npm, Docker, and GitHub Actions dependencies weekly. Releases are intentionally blocked until a container registry and managed container host are selected. Before enabling release publishing/deployment, create a protected GitHub `production` environment and supply `CONTAINER_REGISTRY_TOKEN`, `CLOUD_DEPLOY_CREDENTIALS`, `DATABASE_URL`, `OBJECT_STORAGE_*`, and `AUTH_*` as environment-scoped secrets.
 
