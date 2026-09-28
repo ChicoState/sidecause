@@ -1,0 +1,20 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prerequisites:
+    name: Verify release prerequisites
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Stop until a release destination is selected
+        run: |
+          echo "::error::Release publishing and deployment are intentionally unavailable. Select the container registry and managed container host, configure the production environment, and add the documented secrets before enabling this workflow."
+          exit 1

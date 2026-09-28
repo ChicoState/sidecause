@@ -1,0 +1,4 @@
+// Product models belong to the application implementation phase.
+datasource db {
+  provider = "postgresql"
+}
