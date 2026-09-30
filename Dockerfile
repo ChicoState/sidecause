@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:26.8.2-alpine3.23 AS base
+FROM node:26.10.0-alpine3.23 AS base
 WORKDIR /workspace
 ENV NEXT_TELEMETRY_DISABLED=1
 
@@ -17,7 +17,7 @@ FROM dependencies AS build
 COPY . .
 RUN npm run build
 
-FROM node:26.8.2-alpine3.23 AS production
+FROM node:26.10.0-alpine3.23 AS production
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
