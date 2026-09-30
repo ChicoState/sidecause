@@ -1,0 +1,163 @@
+:root {
+  color-scheme: light;
+  --canvas: #f7f4ed;
+  --ink: #20251f;
+  --muted: #5d675d;
+  --line: #cdd5c8;
+  --accent: #476a45;
+  --accent-soft: #dfe9d9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--canvas);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--canvas);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.hero {
+  min-height: 66vh;
+  display: grid;
+  align-items: end;
+  padding: 3rem 1.5rem;
+  background:
+    linear-gradient(130deg, transparent 0 62%, rgb(225 182 117 / 44%) 62% 100%),
+    var(--accent-soft);
+}
+
+.hero__content,
+.principles {
+  width: min(100%, 70rem);
+  margin: 0 auto;
+}
+
+.hero__content {
+  max-width: 49rem;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+h1 {
+  max-width: 12ch;
+  margin-top: 1rem;
+  font-size: clamp(3rem, 10vw, 6.5rem);
+}
+
+.hero__lede {
+  max-width: 38rem;
+  margin-top: 1.5rem;
+  font-size: clamp(1.125rem, 2vw, 1.4rem);
+}
+
+.hero__note {
+  max-width: 36rem;
+  margin-top: 1.25rem;
+  color: var(--muted);
+}
+
+.principles {
+  padding: 4rem 1.5rem 5rem;
+}
+
+.section-heading {
+  max-width: 35rem;
+}
+
+h2 {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.principles__list {
+  display: grid;
+  gap: 0;
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.principles__list li {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 0.25rem 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.principles__list span {
+  grid-row: span 2;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+.principles__list p {
+  color: var(--muted);
+}
+
+@media (min-width: 48rem) {
+  .hero {
+    padding: 5rem 3rem;
+  }
+
+  .principles {
+    padding: 5rem 3rem 6rem;
+  }
+
+  .principles__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .principles__list li {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    min-height: 14rem;
+    padding: 1.5rem 2rem 1.5rem 0;
+  }
+
+  .principles__list li + li {
+    padding-left: 2rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .principles__list span {
+    grid-row: auto;
+  }
+}
