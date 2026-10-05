@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: 10px;
   color: var(--ink);
   background: var(--canvas);
   font-family: Arial, Helvetica, sans-serif;
@@ -33,12 +33,12 @@ p {
 }
 
 .hero {
-  min-height: 66vh;
+  min-height: 33vh;
   display: grid;
   align-items: end;
-  padding: 3rem 1.5rem;
+  padding: 1.5rem 1.5rem;
   background:
-    linear-gradient(130deg, transparent 0 62%, rgb(225 182 117 / 44%) 62% 100%),
+    linear-gradient(15deg, transparent 0 22%, rgba(75, 194, 188, 0.44) 82% 100%),
     var(--accent-soft);
 }
 
@@ -64,13 +64,13 @@ h1,
 h2,
 h3 {
   font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 500;
+  font-weight: 250;
   line-height: 1.08;
 }
 
 h1 {
   max-width: 12ch;
-  margin-top: 1rem;
+  margin-top: .75rem;
   font-size: clamp(3rem, 10vw, 6.5rem);
 }
 
@@ -102,7 +102,7 @@ h2 {
 .principles__list {
   display: grid;
   gap: 0;
-  margin: 3rem 0 0;
+  margin: 1rem 0 0;
   padding: 0;
   list-style: none;
   border-top: 1px solid var(--line);
@@ -125,7 +125,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.35rem;
+  font-size: 1rem;
 }
 
 .principles__list p {
@@ -134,7 +134,7 @@ h3 {
 
 @media (min-width: 48rem) {
   .hero {
-    padding: 5rem 3rem;
+    padding: 5rem 1.5rem;
   }
 
   .principles {
