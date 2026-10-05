@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@prisma/client": "^7.10.0",
+    "glob": "^13.0.6",
     "next": "^16.3.5",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
@@ -38,24 +39,25 @@
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
+    "@types/react": "19.3.0",
     "@vitest/coverage-v8": "^4.1.11",
     "dotenv": "^17.4.2",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.3.6",
+    "eslint-config-next": "^16.3.8",
     "eslint-config-prettier": "^10.1.8",
     "jsdom": "^27.4.0",
     "prettier": "^3.9.9",
     "prisma": "^7.10.0",
-    "testcontainers": "^11.14.0",
+    "testcontainers": "^12.2.0",
     "typescript": "5.9",
     "vitest": "^4.1.11"
   },
   "allowScripts": {
     "cpu-features@0.0.10": true,
-    "prisma@7.10.0": true,
     "protobufjs@7.6.6": true,
     "ssh2@1.17.0": true,
     "unrs-resolver@1.12.2": true,
+    "prisma@7.10.0": true,
     "@prisma/engines@7.10.0": true
   }
 }
