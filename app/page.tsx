@@ -7,7 +7,8 @@ export default function HomePage() {
           <p className="eyebrow">SideCause</p>
           <h2 id="hero-title">Find community service projects and level up!</h2>
           <p className="hero__lede">
-            SideCause is a community post board for posting and completing community service in your neighborhood.
+            SideCause is a community post board for posting and completing
+            community service in your neighborhood.
           </p>
         </div>
       </section>
