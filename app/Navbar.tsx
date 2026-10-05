@@ -1,22 +1,44 @@
-import React from 'react';
-import './Navbar.css';
+import Link from 'next/link'
+import { signOut } from '../auth'
 
-type navbarProps = {
-  links: { text: string; url: string }[];
-};
- 
-const Navbar: React.FC<navbarProps> = ({ links }) => {
+import './Navbar.css'
+
+type NavbarProps = {
+  session: { user?: { name?: string | null } } | null
+}
+
+export default function Navbar({ session }: NavbarProps) {
   return (
     <nav>
       <ul>
-        {links.map((link, index) => (
-          <li key={index}>
-            <a href={link.url}>{link.text}</a>
+        <li>
+          <Link href="/">SideCause</Link>
+        </li>
+        <li>
+          <Link href="/">Posts</Link>
+        </li>
+        {session?.user ? (
+          <>
+            <li aria-label="Signed in member">
+              <Link href="/">{session.user.name ?? 'Member'}</Link>
+            </li>
+            <li>
+              <form
+                action={async () => {
+                  'use server'
+                  await signOut({ redirectTo: '/' })
+                }}
+              >
+                <button type="submit">Log out</button>
+              </form>
+            </li>
+          </>
+        ) : (
+          <li>
+            <Link href="/login">Login</Link>
           </li>
-        ))}
+        )}
       </ul>
     </nav>
-  );
-};
- 
-export default Navbar;
+  )
+}
