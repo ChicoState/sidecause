@@ -46,7 +46,7 @@
     "jsdom": "^27.4.0",
     "prettier": "^3.9.9",
     "prisma": "^7.10.0",
-    "testcontainers": "^11.14.0",
+    "testcontainers": "^12.2.0",
     "typescript": "5.9",
     "vitest": "^4.1.11"
   },
