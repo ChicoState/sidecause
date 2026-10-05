@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const navLinks = [
   { text: 'SideCause', url: '/' },
   { text: 'Posts', url: '/' },
-  { text: 'Login', url: '/' }
+  { text: 'Login', url: '/login' }
 ];
 
 export default function RootLayout({

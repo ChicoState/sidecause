@@ -2,7 +2,7 @@
 
 ## Status
 
-This repository contains the development foundation and initial App Router shell for a public-facing Next.js application. The root landing page, layout, and global styles are ready for feature development; authentication, database models, migrations, API routes, and browser workflows have **not** been created yet. The approved product decisions are recorded in [docs/product-spec.md](docs/product-spec.md) and [docs/implementation-plan.md](docs/implementation-plan.md).
+This repository contains the development foundation and initial App Router shell for a public-facing Next.js application. Members can register and sign in with a display name, email address, and password. The approved product decisions are recorded in [docs/product-spec.md](docs/product-spec.md) and [docs/implementation-plan.md](docs/implementation-plan.md).
 
 ## Repository map
 
@@ -21,7 +21,7 @@ This repository contains the development foundation and initial App Router shell
 ## Getting Started
 
 1. Install [Git](https://git-scm.com/downloads), [Node.js 26.8.2](https://nodejs.org/en/download), and [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Docker Engine with the Compose plugin). Node 26 is the project’s active-LTS line; npm 11 is bundled with it.
-2. Copy the local configuration template. It contains only safe local service credentials; replace `AUTH_SECRET` before authentication work begins.
+2. Copy the local configuration template. It contains only safe local service credentials. Generate a unique `AUTH_SECRET` for your local environment with `npx auth secret`, then keep it out of version control.
 
    ```sh
    cp .env.example .env
@@ -62,7 +62,7 @@ To install dependencies, start local services, and launch the development server
 
 ## Database migrations
 
-Prisma is configured for PostgreSQL and reads `DATABASE_URL` from `.env`. No product schema exists yet. Once a model is approved, create and review a development migration with:
+Prisma is configured for PostgreSQL and reads `DATABASE_URL` from `.env`. The initial account migration creates the `User` table with a unique email address and password hash. Once a model is approved, create and review a development migration with:
 
 ```sh
 npm run prisma:migrate -- --name describe_the_change
