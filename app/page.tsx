@@ -1,17 +1,14 @@
+import Navbar from './Navbar'
 export default function HomePage() {
   return (
     <main>
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero__content">
-          <p className="eyebrow">Sidecause</p>
-          <h1 id="hero-title">Small acts can move a community forward.</h1>
+          <p className="eyebrow">SideCause</p>
+          <h2 id="hero-title">Find community service projects and level up!</h2>
           <p className="hero__lede">
-            Sidecause will help neighbors find practical ways to contribute
-            their time, from a one-hour errand to a weekend project.
-          </p>
-          <p className="hero__note">
-            The community board is being built. Check back soon to browse
-            opportunities or share one of your own.
+            SideCause is a community post board for posting and completing
+            community service in your neighborhood.
           </p>
         </div>
       </section>
@@ -19,23 +16,22 @@ export default function HomePage() {
       <section className="principles" aria-labelledby="principles-title">
         <div className="section-heading">
           <p className="eyebrow">How it works</p>
-          <h2 id="principles-title">A clear path from need to impact.</h2>
         </div>
         <ol className="principles__list">
           <li>
             <span aria-hidden="true">01</span>
-            <h3>Find a cause</h3>
-            <p>Browse opportunities that need a neighbor’s help.</p>
+            <h3>Post a Quest!</h3>
+            <p>Users can share work that needs to be done.</p>
           </li>
           <li>
             <span aria-hidden="true">02</span>
-            <h3>Make a commitment</h3>
-            <p>Claim one task at a time and know exactly what is needed.</p>
+            <h3>Accept a Quest!</h3>
+            <p>Users can accept work from the community board.</p>
           </li>
           <li>
             <span aria-hidden="true">03</span>
-            <h3>See it through</h3>
-            <p>Mark the work finished so the community can see progress.</p>
+            <h3>Level Up!</h3>
+            <p>Once complete, earn XP and level up.</p>
           </li>
         </ol>
       </section>
