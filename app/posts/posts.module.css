@@ -1,0 +1,105 @@
+.postsPage {
+  width: min(100%, 80rem);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.postsBoard {
+  padding: 1.25rem;
+  border: 1px solid var(--ink);
+  background: #fbfaf5;
+}
+
+.postsTitle {
+  margin: 0;
+  font-size: clamp(2.25rem, 9vw, 4rem);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.controls button,
+.postCard button {
+  font: inherit;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--canvas);
+}
+
+.controls button {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.controls button:disabled,
+.postCard button:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.listViewport {
+  height: clamp(19rem, 58dvh, 30rem);
+  overflow-y: auto;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  scrollbar-color: var(--accent) var(--canvas);
+}
+
+.postsList {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.75rem 0;
+  list-style: none;
+}
+
+.postCard {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 7.5rem;
+  padding: 1rem;
+  border: 1px solid var(--ink);
+  background: #fffefa;
+}
+
+.postCard h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+}
+
+.postCard p {
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+
+.postCard button {
+  flex: 0 0 auto;
+  padding: 0.5rem 0.75rem;
+  white-space: nowrap;
+}
+
+.emptyState {
+  display: grid;
+  height: 100%;
+  margin: 0;
+  place-items: center;
+  color: var(--muted);
+}
+
+@media (min-width: 48rem) {
+  .postsPage {
+    padding: 3rem;
+  }
+
+  .postsBoard {
+    padding: 1.5rem;
+  }
+}

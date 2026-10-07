@@ -70,7 +70,7 @@ h3 {
 
 h1 {
   max-width: 12ch;
-  margin-top: .75rem;
+  margin-top: 0.75rem;
   font-size: clamp(3rem, 10vw, 6.5rem);
 }
 
