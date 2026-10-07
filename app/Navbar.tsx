@@ -1,10 +1,10 @@
-import React from 'react'
-import './Navbar.css'
+import React from 'react';
+import './Navbar.css';
 
 type navbarProps = {
-  links: { text: string; url: string }[]
-}
-
+  links: { text: string; url: string }[];
+};
+ 
 const Navbar: React.FC<navbarProps> = ({ links }) => {
   return (
     <nav>
@@ -16,7 +16,7 @@ const Navbar: React.FC<navbarProps> = ({ links }) => {
         ))}
       </ul>
     </nav>
-  )
-}
-
-export default Navbar
+  );
+};
+ 
+export default Navbar;

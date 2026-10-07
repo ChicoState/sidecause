@@ -6,21 +6,23 @@ import Navbar from './Navbar'
 
 export const metadata: Metadata = {
   title: 'SideCause',
-  description: 'Complete community service projects and level up!',
+  description:
+    'Complete community service projects and level up!',
 }
+
 
 const navLinks = [
   { text: 'SideCause', url: '/' },
-  { text: 'Posts', url: '/' },
-  { text: 'Login', url: '/' },
-]
+  { text: 'Posts', url: '/posts' },
+  { text: 'Login', url: '/' }
+];
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body> 
         <div>
           <Navbar links={navLinks} />
         </div>
