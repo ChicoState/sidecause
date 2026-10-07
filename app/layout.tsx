@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const navLinks = [
   { text: 'SideCause', url: '/' },
-  { text: 'Posts', url: '/' },
+  { text: 'Posts', url: '/posts' },
   { text: 'Login', url: '/' }
 ];
 
