@@ -1,32 +1,44 @@
 'use server'
 
 import { AuthError } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 import { signIn } from '../../auth'
+import {
+  initialLoginFormState,
+  type LoginFormState,
+} from '../../lib/auth/form-state'
 import { validateLogin } from '../../lib/auth/validation'
 
-export async function loginAction(formData: FormData) {
+export async function loginAction(
+  _previousState: LoginFormState,
+  formData: FormData,
+): Promise<LoginFormState> {
+  const values = { email: String(formData.get('email') ?? '').trim() }
   let credentials: { email: string; password: string }
 
   try {
     credentials = validateLogin({
-      email: String(formData.get('email') ?? ''),
+      email: values.email,
       password: String(formData.get('password') ?? ''),
     })
-  } catch (error) {
-    if (error instanceof Error) {
-      redirect('/login?error=invalid')
+  } catch {
+    return {
+      error: 'Enter a valid email address and password.',
+      values,
     }
-    throw error
   }
 
   try {
     await signIn('credentials', { ...credentials, redirectTo: '/' })
   } catch (error) {
     if (error instanceof AuthError) {
-      redirect('/login?error=invalid')
+      return {
+        error: 'The email address or password is incorrect.',
+        values,
+      }
     }
     throw error
   }
+
+  return initialLoginFormState
 }

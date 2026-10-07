@@ -170,6 +170,14 @@ h3 {
   margin-top: 2rem;
 }
 
+.form-error {
+  margin: 0;
+  padding: 0.75rem;
+  border-left: 4px solid #9b2c2c;
+  color: #6e2020;
+  background: #fff1f1;
+}
+
 .form-field {
   display: grid;
   gap: 0.5rem;
@@ -216,6 +224,11 @@ h3 {
 
 .account-form button:hover {
   background: #468a7b;
+}
+
+.account-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 
 .account-panel__switch {
