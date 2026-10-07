@@ -2,7 +2,7 @@ nav {
   background-color: rgba(75, 207, 141, 0.473);
   color: black;
 }
- 
+
 ul {
   list-style-type: none;
   margin: 1rem;
@@ -10,16 +10,33 @@ ul {
   display: flex;
   justify-content: space-around;
 }
- 
+
 li {
   padding: 15px;
 }
- 
+
 a {
   color: black;
   text-decoration: none;
 }
- 
+
 a:hover {
+  text-decoration: underline;
+}
+
+nav form {
+  margin: 0;
+}
+
+nav button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+nav button:hover {
   text-decoration: underline;
 }

@@ -4,7 +4,7 @@
   --ink: #20251f;
   --muted: #5d675d;
   --line: #cdd5c8;
-  --accent: #476a45;
+  --accent: #3cb4bd;
   --accent-soft: #dfe9d9;
 }
 
@@ -132,6 +132,115 @@ h3 {
   color: var(--muted);
 }
 
+.account-page {
+  display: grid;
+  min-height: calc(90vh - 7rem);
+  place-items: center;
+  padding: 1rem 1.5rem 5rem;
+}
+
+.account-panel {
+  width: min(100%, 31rem);
+  padding: 2rem;
+  border: 1px solid var(--line);
+  background: #fffdf8;
+}
+
+.account-panel__back {
+  display: inline-block;
+  margin-bottom: 3rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.account-panel h2 {
+  max-width: 14ch;
+  margin-top: 0.5rem;
+  font-size: 2rem;
+}
+
+.account-panel__intro {
+  margin-top: .25rem;
+  color: var(--muted);
+}
+
+.account-form {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.form-error {
+  margin: 0;
+  padding: 0.75rem;
+  border-left: 4px solid #9b2c2c;
+  color: #6e2020;
+  background: #fff1f1;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.form-field input {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.425rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  background: #fffdf8;
+  font: inherit;
+}
+
+.form-field input:focus-visible,
+.account-form button:focus-visible,
+.account-panel a:focus-visible {
+  outline: 3px solid #236e69;
+  outline-offset: 3px;
+}
+
+.form-field__hint {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.account-form button {
+  min-height: 2.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 0;
+  color: #fff;
+  background: var(--accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.account-form button:hover {
+  background: #468a7b;
+}
+
+.account-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.account-panel__switch {
+  margin-top: 1.75rem;
+  color: var(--muted);
+}
+
+.account-panel__switch a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 @media (min-width: 48rem) {
   .hero {
     padding: 5rem 1.5rem;
@@ -159,5 +268,9 @@ h3 {
 
   .principles__list span {
     grid-row: auto;
+  }
+
+  .account-panel {
+    padding: 2rem;
   }
 }
