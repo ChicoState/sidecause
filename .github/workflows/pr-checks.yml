@@ -17,6 +17,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+        env:
+          DATABASE_URL: postgresql://sidecause:sidecause@localhost:5432/sidecause?schema=public
       - run: npm run format:check
       - run: npm run lint
       - run: npm run typecheck

@@ -6,7 +6,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS dependencies
 COPY package.json package-lock.json ./
-RUN npm ci
+COPY prisma.config.ts ./
+COPY prisma ./prisma
+RUN DATABASE_URL=postgresql://sidecause:sidecause@localhost:5432/sidecause?schema=public npm ci
 
 FROM dependencies AS development
 COPY . .
@@ -25,7 +27,7 @@ RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs
 COPY --from=build --chown=nextjs:nodejs /workspace/package.json ./package.json
 COPY --from=build --chown=nextjs:nodejs /workspace/package-lock.json ./package-lock.json
-RUN npm ci --omit=dev && npm cache clean --force
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 COPY --from=build --chown=nextjs:nodejs /workspace/.next ./.next
 USER nextjs
 EXPOSE 3000
