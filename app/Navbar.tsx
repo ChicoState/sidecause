@@ -20,7 +20,7 @@ export default function Navbar({ session }: NavbarProps) {
         {session?.user ? (
           <>
             <li aria-label="Signed in member">
-              <Link href="/">{session.user.name ?? 'Member'}</Link>
+              <Link href="/profile">{session.user.name ?? 'Member'}</Link>
             </li>
             <li>
               <form
