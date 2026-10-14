@@ -29,7 +29,7 @@ export async function loginAction(
   }
 
   try {
-    await signIn('credentials', { ...credentials, redirectTo: '/' })
+    await signIn('credentials', { ...credentials, redirectTo: '/posts' })
   } catch (error) {
     if (error instanceof AuthError) {
       return {
