@@ -68,7 +68,7 @@ export async function registerAction(
   }
 
   try {
-    await signIn('credentials', { email, password, redirectTo: '/' })
+    await signIn('credentials', { email, password, redirectTo: '/posts' })
   } catch (error) {
     if (error instanceof AuthError) {
       return {
