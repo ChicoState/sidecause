@@ -4,8 +4,8 @@
 
 Implement Sidecause in small, testable vertical slices. The product contract in
 [`product-spec.md`](product-spec.md) is the source of truth. Each schema and
-API task must preserve the documented public/hidden status boundary and the
-single-volunteer claim invariant.
+API task must preserve the documented public/hidden status boundary, capacity
+limit, per-volunteer pay, and attendee-contact privacy boundary.
 
 ## Architecture decisions
 
@@ -13,7 +13,8 @@ single-volunteer claim invariant.
 - Use Auth.js with email-and-password credentials and Prisma/PostgreSQL-backed
   user records. Passwords are stored only as secure hashes.
 - Expose REST-style route handlers with a single structured error shape.
-- Use transactions or an equivalent guarded conditional update for claims.
+- Use transactions or an equivalent guarded conditional update for joins so
+  concurrent requests cannot exceed a bounty's maximum volunteer capacity.
 
 ## Task list
 
@@ -58,14 +59,17 @@ Prisma migration.
 
 ### Phase 2: Publish and browse bounties
 
-#### Task 3: Define and migrate the bounty domain
+#### Task 3: Define and migrate the scheduled, capacity-based bounty domain
 
 **Acceptance criteria:**
 
-- [ ] The schema represents locations, deadlines, lifecycle status, poster,
-      optional claimant, completion, verification, and cancellation reason.
-- [ ] The schema makes a single claimant unambiguous and supports future
-      additive volunteer capacity.
+- [ ] The schema represents locations, scheduled date/time, joining deadline,
+      maximum capacity, per-volunteer pay, lifecycle status, poster, completion, verification, and
+      cancellation reason.
+- [ ] A volunteer-attendance relation makes one attendance record per member
+      and bounty unambiguous, and supports an attendee list.
+- [ ] Requirement relations store distinct skills and equipment with a
+      `REQUIRED` or `RECOMMENDED` designation.
 - [ ] A migration is reviewed and applies to local PostgreSQL.
 
 **Verify:** `npm run prisma:validate`; run the reviewed development migration;
@@ -76,15 +80,19 @@ integration tests for persistence constraints.
 **Likely files:** `prisma/schema.prisma`, `prisma/migrations/*`, domain types,
 integration tests.
 
-#### Task 4: Create and list public bounties
+#### Task 4: Create and list public scheduled bounties
 
 **Acceptance criteria:**
 
-- [ ] An authenticated member can create a valid open bounty.
-- [ ] Visitors can browse a paginated list of `OPEN`, `CLAIMED`, and
+- [ ] An authenticated member can create a valid open bounty with a schedule,
+      maximum capacity, per-volunteer pay, and skill/equipment requirements.
+- [ ] Visitors can browse a paginated list of `OPEN`, `FULL`, and
       `FINISHED` bounties.
 - [ ] Cancelled and expired bounties never appear in public list or detail
       responses.
+- [ ] Public responses never include the poster's email; it is included only
+      for authenticated volunteers with active attendance on that bounty.
+      Withdrawal immediately revokes access.
 
 **Verify:** Unit tests for input schemas and expiry calculation; integration
 tests for API contracts; browser test for browse and create flows.
@@ -100,34 +108,39 @@ pages and components, unit/integration/e2e tests.
 - [ ] Validation and authorization errors use the specified shape.
 - [ ] `npm run verify` and relevant integration/browser tests pass.
 
-### Phase 3: Claim and completion lifecycle
+### Phase 3: Volunteer attendance and completion lifecycle
 
-#### Task 5: Claim and withdraw safely
+#### Task 5: Join and withdraw safely
 
 **Acceptance criteria:**
 
-- [ ] Exactly one member can claim an open, unexpired bounty.
-- [ ] A second or late claim returns `409` and does not modify ownership.
-- [ ] The claimant can withdraw, returning the bounty to `OPEN`.
+- [ ] A member can immediately join an open, unexpired bounty while capacity
+      remains.
+- [ ] A duplicate, late, or over-capacity join returns `409` and does not
+      exceed `maxVolunteers`.
+- [ ] A joined volunteer can withdraw; withdrawing from a full bounty returns
+      it to `OPEN` and revokes access to the poster's contact information.
 
-**Verify:** Concurrent integration test for claim attempts; browser test for
-claim and withdrawal.
+**Verify:** Concurrent integration test for last-slot join attempts; browser
+test for join and withdrawal.
 
 **Dependencies:** Task 4.
 
-**Likely files:** claim service, claim route handlers, bounty detail UI, tests.
+**Likely files:** attendance service, volunteer route handlers, bounty detail
+UI, tests.
 
 #### Task 6: Finish, verify, and cancel
 
 **Acceptance criteria:**
 
-- [ ] Only the claimant can finish a claimed bounty, without proof submission.
+- [ ] Only the poster can finish an open or full bounty, without proof
+      submission.
 - [ ] Only the poster can optionally verify a finished bounty.
-- [ ] Only the poster can cancel an open or claimed bounty with an optional
+- [ ] Only the poster can cancel an open or full bounty with an optional
       reason.
 
 **Verify:** Authorization and transition integration tests; browser test for
-the full poster/claimant workflow.
+the full poster/volunteer workflow.
 
 **Dependencies:** Task 5.
 
@@ -144,12 +157,13 @@ the full poster/claimant workflow.
 
 ## Risks and mitigations
 
-| Risk                                 | Impact                 | Mitigation                                                                                                 |
-| ------------------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Two members claim simultaneously     | High                   | Use a transaction/conditional status update and test concurrent requests.                                  |
-| Unverified email plus no recovery    | High user-support cost | Make the limitation explicit in registration UI; revisit verification/recovery before public launch.       |
-| Inappropriate or unsafe public posts | High                   | Moderation is intentionally deferred; do not launch broadly until a reporting/moderation decision is made. |
-| Deadlines depend on client clocks    | Medium                 | Compare deadlines on the server and use one UTC timestamp representation.                                  |
+| Risk                                 | Impact                 | Mitigation                                                                                                             |
+| ------------------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Concurrent joins exceed capacity     | High                   | Use a transaction/conditional status update and test simultaneous last-slot joins.                                     |
+| Poster contact information leaks     | High                   | Project public, poster, active-attendee, and withdrawn-attendee response shapes separately; test each access boundary. |
+| Unverified email plus no recovery    | High user-support cost | Make the limitation explicit in registration UI; revisit verification/recovery before public launch.                   |
+| Inappropriate or unsafe public posts | High                   | Moderation is intentionally deferred; do not launch broadly until a reporting/moderation decision is made.             |
+| Deadlines depend on client clocks    | Medium                 | Compare deadlines on the server and use one UTC timestamp representation.                                              |
 
 ## Approval gates
 

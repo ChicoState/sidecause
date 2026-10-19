@@ -19,7 +19,7 @@
     "test": "vitest run --passWithNoTests",
     "test:integration": "vitest run --project integration --passWithNoTests",
     "test:e2e": "playwright test",
-    "coverage": "vitest run --coverage --passWithNoTests",
+    "coverage": "vitest run --project unit --coverage --passWithNoTests",
     "prisma:validate": "prisma validate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
