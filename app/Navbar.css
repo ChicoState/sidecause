@@ -3,15 +3,18 @@ nav {
   color: black;
 }
 
-ul {
+nav > ul {
   list-style-type: none;
   margin: 1rem;
   padding: 0;
   display: flex;
+  align-items: center;
   justify-content: space-around;
 }
 
-li {
+nav > ul > li {
+  display: flex;
+  align-items: center;
   padding: 15px;
 }
 
