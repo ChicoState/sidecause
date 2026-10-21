@@ -3,20 +3,21 @@
 ## Objective
 
 Sidecause is a public community-service bounty board. Anyone can browse active
-or completed opportunities. Signed-in members can post an opportunity, claim
+or completed opportunities. Signed-in members can post an opportunity, join
 one, and manage the resulting volunteer work.
 
-The first release is deliberately small: a bounty is a single-volunteer,
-unpaid opportunity. It must make it easy to discover a project, commit to it,
-and show that it was finished.
+The first release is deliberately small: a bounty is an unpaid, scheduled
+opportunity for a bounded group of volunteers. It must make it easy to
+discover a project, join it while places remain, and show that it was
+finished.
 
 ## Users and access
 
-| User             | Can do                                                                                   |
-| ---------------- | ---------------------------------------------------------------------------------------- |
-| Visitor          | Browse `OPEN`, `CLAIMED`, and `FINISHED` bounties.                                       |
-| Signed-in member | All visitor actions plus create, claim, withdraw from, and finish bounties.              |
-| Bounty poster    | All member actions plus cancel and optionally verify completion of bounties they posted. |
+| User             | Can do                                                                        |
+| ---------------- | ----------------------------------------------------------------------------- |
+| Visitor          | Browse `OPEN`, `FULL`, and `FINISHED` bounties.                               |
+| Signed-in member | All visitor actions plus create, join, and withdraw from bounties.            |
+| Bounty poster    | All member actions plus finish, cancel, and optionally verify their bounties. |
 
 Authentication uses an email address, password, and public display name. Email
 verification, password recovery, social sign-in, and moderation are out of
@@ -26,25 +27,32 @@ v1.
 ## Bounty lifecycle
 
 ```text
-OPEN --claim--> CLAIMED --finish--> FINISHED
-  ^                 |
-  |---withdraw------|
+OPEN --join until full--> FULL
+ ^                       |
+ |-------withdraw--------|
 
-OPEN or CLAIMED --cancel--> CANCELLED
-OPEN --deadline passes--> EXPIRED
+OPEN or FULL --poster finishes--> FINISHED
+
+OPEN or FULL --cancel--> CANCELLED
+OPEN or FULL --deadline passes--> EXPIRED
 ```
 
-- Only one member may claim an `OPEN` bounty.
-- Finishing is immediate and requires no note, photograph, or poster approval.
+- A member may join an `OPEN` bounty immediately while its attendance count is
+  below `maxVolunteers`; the join changes it to `FULL` when the count reaches
+  that limit.
+- A joined member may withdraw. Withdrawing from a `FULL` bounty returns it to
+  `OPEN`.
+- Only the poster may finish a bounty. Finishing requires no note, photograph,
+  or attendee approval.
 - A poster may optionally verify a finished bounty. Verification is separate
   from its status and never blocks finishing.
-- A poster may cancel an `OPEN` or `CLAIMED` bounty, optionally supplying a
+- A poster may cancel an `OPEN` or `FULL` bounty, optionally supplying a
   cancellation reason.
 - Published bounties cannot otherwise be edited.
-- Public listings and public detail pages expose only `OPEN`, `CLAIMED`, and
+- Public listings and public detail pages expose only `OPEN`, `FULL`, and
   `FINISHED` bounties. `CANCELLED` and `EXPIRED` bounties are not public.
 - Expiry is determined server-side from the deadline. An expired bounty cannot
-  be claimed.
+  be joined.
 
 ## Bounty data
 
@@ -53,14 +61,26 @@ Each bounty has:
 - A required title and description.
 - A required human-readable location label, such as a neighbourhood or a
   specific address.
+- An optional picture reference. Store the image file in object storage and
+  keep its storage key or URL on the bounty.
 - Optional precise latitude and longitude, supplied together when the location
   is specific enough for a map point.
-- A required deadline. A bounty expires after it.
-- The poster, optional claimant, status, creation time, finish time, optional
-  verification time, and optional cancellation reason.
+- A required scheduled date and time, plus a required deadline for joining. A
+  bounty expires after its deadline; its scheduled time is task information,
+  not an automatic lifecycle transition.
+- A required positive maximum volunteer count.
+- A non-negative monetary amount paid per volunteer, stored with two decimal
+  places.
+- Zero or more named skill requirements and equipment requirements, each
+  marked `REQUIRED` or `RECOMMENDED`.
+- The poster, zero or more attending volunteers, status, creation time, finish
+  time, optional verification time, and optional cancellation reason.
 
-Display names are public where a poster or claimant is shown. Email addresses,
-password hashes, and authentication/session data are never public.
+Display names are public where a poster or attendee is shown. The poster's
+display name and account email are available only to authenticated volunteers
+with active attendance on that bounty; withdrawing immediately revokes access.
+Email addresses, password hashes, and
+authentication/session data are never included in public responses.
 
 ## Application boundary and API contract
 
@@ -82,23 +102,24 @@ All API errors use this response shape:
 
 Validation failures return `422`; unauthenticated requests `401`; unauthorized
 requests `403`; missing or non-public resources `404`; and lifecycle conflicts
-(such as a second simultaneous claim) `409`. Internal errors never reveal
+(such as simultaneous attempts to take the final place) `409`. Internal errors never reveal
 implementation details.
 
-| Operation                             | Contract                                                                                                                                                                |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/bounties`                   | Public, paginated list of public statuses. Supports `page`, `pageSize`, `status`, and location filtering defined during implementation. Returns `{ data, pagination }`. |
-| `POST /api/bounties`                  | Authenticated creation. Accepts title, description, location, optional coordinates, and deadline. Returns the created bounty with `201`.                                |
-| `GET /api/bounties/:id`               | Public only for a public-status bounty; otherwise returns `404`.                                                                                                        |
-| `POST /api/bounties/:id/claims`       | Authenticated. Atomically claims an open, unexpired bounty for the current user.                                                                                        |
-| `DELETE /api/bounties/:id/claims/me`  | Claimant only. Releases the claim and returns the bounty to `OPEN`.                                                                                                     |
-| `POST /api/bounties/:id/completion`   | Claimant only. Marks the bounty `FINISHED`.                                                                                                                             |
-| `POST /api/bounties/:id/verification` | Poster only. Marks a finished bounty verified.                                                                                                                          |
-| `POST /api/bounties/:id/cancellation` | Poster only. Cancels an open or claimed bounty; body may include `reason`.                                                                                              |
+| Operation                                | Contract                                                                                                                                                                                                 |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/bounties`                      | Public, paginated list of public statuses. Supports `page`, `pageSize`, `status`, and location filtering defined during implementation. Returns `{ data, pagination }`.                                  |
+| `POST /api/bounties`                     | Authenticated creation. Accepts title, description, location, optional coordinates, schedule and deadline, maximum capacity, per-volunteer pay, and requirements. Returns the created bounty with `201`. |
+| `GET /api/bounties/:id`                  | Public only for a public-status bounty; otherwise returns `404`. Public responses never contain poster contact information.                                                                              |
+| `GET /api/bounties/:id/poster-contact`   | Authenticated active attendee only. Returns the poster's permitted contact information.                                                                                                                  |
+| `POST /api/bounties/:id/volunteers`      | Authenticated. Atomically joins an open, unexpired bounty when capacity remains.                                                                                                                         |
+| `DELETE /api/bounties/:id/volunteers/me` | Joined volunteer only. Withdraws and returns a full bounty to `OPEN`.                                                                                                                                    |
+| `POST /api/bounties/:id/completion`      | Poster only. Marks the bounty `FINISHED`.                                                                                                                                                                |
+| `POST /api/bounties/:id/verification`    | Poster only. Marks a finished bounty verified.                                                                                                                                                           |
+| `POST /api/bounties/:id/cancellation`    | Poster only. Cancels an open or full bounty; body may include `reason`.                                                                                                                                  |
 
 Inputs are validated at route-handler boundaries. Internal services receive
-trusted, typed inputs. State-changing operations must be transactional so two
-users cannot both claim the same bounty.
+trusted, typed inputs. State-changing operations must be transactional so
+concurrent joins cannot exceed `maxVolunteers`.
 
 ## Commands
 
@@ -138,19 +159,18 @@ docs/                Product specification, decisions, and implementation plans
 ## Success criteria
 
 - A visitor can view a paginated public list and public detail pages for open,
-  claimed, and finished bounties.
-- A member can register, sign in, create a bounty, and claim one open bounty.
-- A claimant can withdraw or finish their own claim; concurrent claims do not
-  assign two volunteers.
-- A poster can cancel their own open or claimed bounty and optionally verify a
-  finished one.
+  full, and finished bounties.
+- A member can register, sign in, create a bounty, and join one open bounty
+  while capacity remains.
+- A joined volunteer can withdraw; concurrent joins never exceed a bounty's
+  maximum volunteer count.
+- A poster can finish or cancel their own open or full bounty and optionally
+  verify a finished one.
 - All invalid or unauthorized requests follow the documented error contract.
 
 ## Explicitly deferred
 
 - Payments and experience-point rewards.
-- Multiple volunteers per bounty. A future additive `volunteerCapacity` field
-  may extend the one-volunteer model.
 - Bounty editing, proof uploads, comments, reporting, and moderation.
 - Email verification, password recovery, social sign-in, and organization
   accounts.

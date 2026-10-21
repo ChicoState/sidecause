@@ -45,7 +45,7 @@ npm run test:smoke
 
 ## Docker lifecycle
 
-Start local services with `npm run docker:up` and stop them with `npm run docker:down`. This retains named volumes. The smoke test uses a separate Compose project and removes its volumes automatically. Run `docker compose down --volumes` only when intentionally resetting local PostgreSQL and AIStor data. Start the profile-gated application container with `docker compose --profile app up --build`.
+Start local services with `npm run docker:up`, apply migrations with `npm run prisma:deploy`, and optionally add local sample records with `npm run db:seed:examples`. Stop services with `npm run docker:down`; this retains named volumes. The example seed is limited to local database hosts. The smoke test uses a separate Compose project and removes its volumes automatically. Run `docker compose down --volumes` only when intentionally resetting local PostgreSQL and AIStor data. Start the profile-gated application container with `docker compose --profile app up --build`.
 
 ## Change checklist
 
