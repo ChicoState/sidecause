@@ -1,6 +1,18 @@
 const registrationError =
   'Please enter a display name, valid email address, and password of at least 8 characters.'
 
+const displayNameError = 'Display name must be between 1 and 30 characters.'
+
+export function validateDisplayName(value: string): string {
+  const displayName = value.trim()
+
+  if (displayName.length < 1 || displayName.length > 30) {
+    throw new Error(displayNameError)
+  }
+
+  return displayName
+}
+
 export type RegistrationInput = {
   displayName: string
   email: string
@@ -10,13 +22,16 @@ export type RegistrationInput = {
 export function validateRegistration(
   input: RegistrationInput,
 ): RegistrationInput {
-  const displayName = input.displayName.trim()
+  let displayName: string
+  try {
+    displayName = validateDisplayName(input.displayName)
+  } catch {
+    throw new Error(registrationError)
+  }
   const email = input.email.trim().toLowerCase()
   const password = input.password
 
   if (
-    displayName.length < 1 ||
-    displayName.length > 80 ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
     email.length > 254 ||
     password.length < 8 ||

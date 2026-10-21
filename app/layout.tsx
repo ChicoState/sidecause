@@ -19,7 +19,7 @@ export default async function RootLayout({
   const user = session?.user?.email
     ? await prisma.user.findUnique({
         where: { email: session.user.email },
-        select: { avatarId: true },
+        select: { avatarId: true, displayName: true },
       })
     : null
   const imageOptions = user ? await getProfileImageOptions() : []
@@ -29,7 +29,11 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <div>
-          <Navbar avatar={avatar} session={session} />
+          <Navbar
+            avatar={avatar}
+            displayName={user?.displayName}
+            session={session}
+          />
         </div>
         {children}
       </body>

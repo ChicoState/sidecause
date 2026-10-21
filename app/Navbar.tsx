@@ -6,11 +6,12 @@ import type { ProfileImageOption } from '../lib/profile-images'
 import './Navbar.css'
 
 type NavbarProps = {
+  displayName?: string | null
   session: { user?: { name?: string | null } } | null
   avatar?: ProfileImageOption
 }
 
-export default function Navbar({ session, avatar }: NavbarProps) {
+export default function Navbar({ displayName, session, avatar }: NavbarProps) {
   return (
     <nav>
       <ul>
@@ -46,7 +47,7 @@ export default function Navbar({ session, avatar }: NavbarProps) {
                     '🌿'
                   )}
                 </span>
-                {session.user.name ?? 'Member'}
+                {displayName ?? session.user.name ?? 'Member'}
               </Link>
             </li>
             <li>

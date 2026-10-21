@@ -100,6 +100,7 @@ export default function ProfileView({
         <p>Quests created: &mdash; &emsp; Quests completed: &mdash;</p>
       </section>
       <ProfileSettings
+        displayName={name ?? ''}
         isOpen={settingsOpen}
         imageOptions={imageOptions}
         onAvatarChange={chooseAvatar}

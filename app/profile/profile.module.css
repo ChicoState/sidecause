@@ -142,6 +142,60 @@
   font-size: 0.9rem;
 }
 
+.nameForm {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.nameForm input {
+  min-width: 0;
+  flex: 1;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: #fffdf8;
+  font: inherit;
+}
+
+.nameForm button {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--accent);
+  color: var(--ink);
+  background: var(--accent-soft);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nameForm input:focus-visible,
+.nameForm button:focus-visible {
+  outline: 3px solid #236e69;
+  outline-offset: 3px;
+}
+
+.nameForm button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.settingError {
+  margin-top: 0.75rem;
+  color: #6e2020;
+  font-size: 0.875rem;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 .avatarGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

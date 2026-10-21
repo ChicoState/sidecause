@@ -1,15 +1,19 @@
 'use client'
 
-import { useEffect, useRef, type CSSProperties } from 'react'
+import { useActionState, useEffect, useRef, type CSSProperties } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import type { ProfileImageOption } from '../../lib/profile-images'
 
+import { updateDisplayNameAction } from './actions'
+import { initialDisplayNameFormState } from './form-state'
 import styles from './profile.module.css'
 
 type ProfileSettingsProps = {
   imageOptions: ProfileImageOption[]
   isOpen: boolean
+  displayName: string
   onAvatarChange: (id: string) => void
   onClose: () => void
   saveState: 'idle' | 'saving' | 'saved' | 'error'
@@ -19,12 +23,19 @@ type ProfileSettingsProps = {
 export default function ProfileSettings({
   imageOptions,
   isOpen,
+  displayName,
   onAvatarChange,
   onClose,
   saveState,
   selectedAvatar,
 }: ProfileSettingsProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const router = useRouter()
+  const [displayNameState, displayNameFormAction, isDisplayNamePending] =
+    useActionState(updateDisplayNameAction, {
+      ...initialDisplayNameFormState,
+      values: { displayName },
+    })
 
   useEffect(() => {
     if (!isOpen) return
@@ -38,6 +49,10 @@ export default function ProfileSettings({
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, onClose])
+
+  useEffect(() => {
+    if (displayNameState.success) router.refresh()
+  }, [displayNameState.success, router])
 
   if (!isOpen) return null
 
@@ -64,6 +79,42 @@ export default function ProfileSettings({
           >
             ×
           </button>
+        </div>
+
+        <div className={styles.settingGroup}>
+          <div>
+            <h3>Display name</h3>
+            <p className={styles.settingDescription}>
+              This is the name other SideCause members will see.
+            </p>
+          </div>
+          <form action={displayNameFormAction} className={styles.nameForm}>
+            <label className={styles.visuallyHidden} htmlFor="display-name">
+              Display name
+            </label>
+            <input
+              autoComplete="nickname"
+              defaultValue={displayNameState.values.displayName}
+              id="display-name"
+              maxLength={30}
+              name="displayName"
+              required
+              type="text"
+            />
+            <button disabled={isDisplayNamePending} type="submit">
+              {isDisplayNamePending ? 'Saving…' : 'Save name'}
+            </button>
+          </form>
+          {displayNameState.error && (
+            <p className={styles.settingError} role="alert">
+              {displayNameState.error}
+            </p>
+          )}
+          {displayNameState.success && (
+            <p className={styles.savedMessage} role="status">
+              {displayNameState.success}
+            </p>
+          )}
         </div>
 
         <div className={styles.settingGroup}>
