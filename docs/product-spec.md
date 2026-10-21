@@ -61,6 +61,8 @@ Each bounty has:
 - A required title and description.
 - A required human-readable location label, such as a neighbourhood or a
   specific address.
+- An optional picture reference. Store the image file in object storage and
+  keep its storage key or URL on the bounty.
 - Optional precise latitude and longitude, supplied together when the location
   is specific enough for a map point.
 - A required scheduled date and time, plus a required deadline for joining. A

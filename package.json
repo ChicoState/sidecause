@@ -23,6 +23,7 @@
     "prisma:validate": "prisma validate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
+    "db:seed:examples": "node --experimental-strip-types scripts/seed-example-bounties.mjs",
     "docker:up": "docker compose up -d postgres minio",
     "docker:down": "docker compose down",
     "test:smoke": "bash scripts/smoke.sh",

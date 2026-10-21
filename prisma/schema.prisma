@@ -41,6 +41,7 @@ model Bounty {
   title                 String
   description           String
   locationLabel         String
+  imageUrl              String?
   latitude              Decimal?                     @db.Decimal(9, 6)
   longitude             Decimal?                     @db.Decimal(9, 6)
   scheduledAt           DateTime

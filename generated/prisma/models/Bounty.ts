@@ -29,15 +29,15 @@ export type AggregateBounty = {
 export type BountyAvgAggregateOutputType = {
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
-  minVolunteers: number | null
   maxVolunteers: number | null
+  payPerVolunteer: runtime.Decimal | null
 }
 
 export type BountySumAggregateOutputType = {
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
-  minVolunteers: number | null
   maxVolunteers: number | null
+  payPerVolunteer: runtime.Decimal | null
 }
 
 export type BountyMinAggregateOutputType = {
@@ -45,12 +45,13 @@ export type BountyMinAggregateOutputType = {
   title: string | null
   description: string | null
   locationLabel: string | null
+  imageUrl: string | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
   scheduledAt: Date | null
   deadline: Date | null
-  minVolunteers: number | null
   maxVolunteers: number | null
+  payPerVolunteer: runtime.Decimal | null
   status: $Enums.BountyStatus | null
   posterId: string | null
   createdAt: Date | null
@@ -65,12 +66,13 @@ export type BountyMaxAggregateOutputType = {
   title: string | null
   description: string | null
   locationLabel: string | null
+  imageUrl: string | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
   scheduledAt: Date | null
   deadline: Date | null
-  minVolunteers: number | null
   maxVolunteers: number | null
+  payPerVolunteer: runtime.Decimal | null
   status: $Enums.BountyStatus | null
   posterId: string | null
   createdAt: Date | null
@@ -85,12 +87,13 @@ export type BountyCountAggregateOutputType = {
   title: number
   description: number
   locationLabel: number
+  imageUrl: number
   latitude: number
   longitude: number
   scheduledAt: number
   deadline: number
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: number
   status: number
   posterId: number
   createdAt: number
@@ -105,15 +108,15 @@ export type BountyCountAggregateOutputType = {
 export type BountyAvgAggregateInputType = {
   latitude?: true
   longitude?: true
-  minVolunteers?: true
   maxVolunteers?: true
+  payPerVolunteer?: true
 }
 
 export type BountySumAggregateInputType = {
   latitude?: true
   longitude?: true
-  minVolunteers?: true
   maxVolunteers?: true
+  payPerVolunteer?: true
 }
 
 export type BountyMinAggregateInputType = {
@@ -121,12 +124,13 @@ export type BountyMinAggregateInputType = {
   title?: true
   description?: true
   locationLabel?: true
+  imageUrl?: true
   latitude?: true
   longitude?: true
   scheduledAt?: true
   deadline?: true
-  minVolunteers?: true
   maxVolunteers?: true
+  payPerVolunteer?: true
   status?: true
   posterId?: true
   createdAt?: true
@@ -141,12 +145,13 @@ export type BountyMaxAggregateInputType = {
   title?: true
   description?: true
   locationLabel?: true
+  imageUrl?: true
   latitude?: true
   longitude?: true
   scheduledAt?: true
   deadline?: true
-  minVolunteers?: true
   maxVolunteers?: true
+  payPerVolunteer?: true
   status?: true
   posterId?: true
   createdAt?: true
@@ -161,12 +166,13 @@ export type BountyCountAggregateInputType = {
   title?: true
   description?: true
   locationLabel?: true
+  imageUrl?: true
   latitude?: true
   longitude?: true
   scheduledAt?: true
   deadline?: true
-  minVolunteers?: true
   maxVolunteers?: true
+  payPerVolunteer?: true
   status?: true
   posterId?: true
   createdAt?: true
@@ -268,12 +274,13 @@ export type BountyGroupByOutputType = {
   title: string
   description: string
   locationLabel: string
+  imageUrl: string | null
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
   scheduledAt: Date
   deadline: Date
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal
   status: $Enums.BountyStatus
   posterId: string
   createdAt: Date
@@ -311,12 +318,13 @@ export type BountyWhereInput = {
   title?: Prisma.StringFilter<"Bounty"> | string
   description?: Prisma.StringFilter<"Bounty"> | string
   locationLabel?: Prisma.StringFilter<"Bounty"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Bounty"> | string | null
   latitude?: Prisma.DecimalNullableFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
   deadline?: Prisma.DateTimeFilter<"Bounty"> | Date | string
-  minVolunteers?: Prisma.IntFilter<"Bounty"> | number
   maxVolunteers?: Prisma.IntFilter<"Bounty"> | number
+  payPerVolunteer?: Prisma.DecimalFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
@@ -335,12 +343,13 @@ export type BountyOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   locationLabel?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  minVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
+  payPerVolunteer?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -362,12 +371,13 @@ export type BountyWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Bounty"> | string
   description?: Prisma.StringFilter<"Bounty"> | string
   locationLabel?: Prisma.StringFilter<"Bounty"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Bounty"> | string | null
   latitude?: Prisma.DecimalNullableFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
   deadline?: Prisma.DateTimeFilter<"Bounty"> | Date | string
-  minVolunteers?: Prisma.IntFilter<"Bounty"> | number
   maxVolunteers?: Prisma.IntFilter<"Bounty"> | number
+  payPerVolunteer?: Prisma.DecimalFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
@@ -386,12 +396,13 @@ export type BountyOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   locationLabel?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  minVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
+  payPerVolunteer?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -414,12 +425,13 @@ export type BountyScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Bounty"> | string
   description?: Prisma.StringWithAggregatesFilter<"Bounty"> | string
   locationLabel?: Prisma.StringWithAggregatesFilter<"Bounty"> | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Bounty"> | string | null
   latitude?: Prisma.DecimalNullableWithAggregatesFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableWithAggregatesFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeWithAggregatesFilter<"Bounty"> | Date | string
   deadline?: Prisma.DateTimeWithAggregatesFilter<"Bounty"> | Date | string
-  minVolunteers?: Prisma.IntWithAggregatesFilter<"Bounty"> | number
   maxVolunteers?: Prisma.IntWithAggregatesFilter<"Bounty"> | number
+  payPerVolunteer?: Prisma.DecimalWithAggregatesFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusWithAggregatesFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringWithAggregatesFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Bounty"> | Date | string
@@ -434,12 +446,13 @@ export type BountyCreateInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -457,12 +470,13 @@ export type BountyUncheckedCreateInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -480,12 +494,13 @@ export type BountyUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -503,12 +518,13 @@ export type BountyUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -526,12 +542,13 @@ export type BountyCreateManyInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -546,12 +563,13 @@ export type BountyUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -565,12 +583,13 @@ export type BountyUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -595,12 +614,13 @@ export type BountyCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   locationLabel?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  minVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
+  payPerVolunteer?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -613,8 +633,8 @@ export type BountyCountOrderByAggregateInput = {
 export type BountyAvgOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  minVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
+  payPerVolunteer?: Prisma.SortOrder
 }
 
 export type BountyMaxOrderByAggregateInput = {
@@ -622,12 +642,13 @@ export type BountyMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   locationLabel?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  minVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
+  payPerVolunteer?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -642,12 +663,13 @@ export type BountyMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   locationLabel?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  minVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
+  payPerVolunteer?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -660,8 +682,8 @@ export type BountyMinOrderByAggregateInput = {
 export type BountySumOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  minVolunteers?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
+  payPerVolunteer?: Prisma.SortOrder
 }
 
 export type BountyScalarRelationFilter = {
@@ -711,6 +733,10 @@ export type BountyUncheckedUpdateManyWithoutPosterNestedInput = {
   deleteMany?: Prisma.BountyScalarWhereInput | Prisma.BountyScalarWhereInput[]
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type NullableDecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -727,16 +753,20 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type EnumBountyStatusFieldUpdateOperationsInput = {
   set?: $Enums.BountyStatus
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type BountyCreateNestedOneWithoutVolunteerAttendancesInput = {
@@ -786,12 +816,13 @@ export type BountyCreateWithoutPosterInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -808,12 +839,13 @@ export type BountyUncheckedCreateWithoutPosterInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -859,12 +891,13 @@ export type BountyScalarWhereInput = {
   title?: Prisma.StringFilter<"Bounty"> | string
   description?: Prisma.StringFilter<"Bounty"> | string
   locationLabel?: Prisma.StringFilter<"Bounty"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Bounty"> | string | null
   latitude?: Prisma.DecimalNullableFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.DecimalNullableFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
   deadline?: Prisma.DateTimeFilter<"Bounty"> | Date | string
-  minVolunteers?: Prisma.IntFilter<"Bounty"> | number
   maxVolunteers?: Prisma.IntFilter<"Bounty"> | number
+  payPerVolunteer?: Prisma.DecimalFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
@@ -879,12 +912,13 @@ export type BountyCreateWithoutVolunteerAttendancesInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -901,12 +935,13 @@ export type BountyUncheckedCreateWithoutVolunteerAttendancesInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -939,12 +974,13 @@ export type BountyUpdateWithoutVolunteerAttendancesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -961,12 +997,13 @@ export type BountyUncheckedUpdateWithoutVolunteerAttendancesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -983,12 +1020,13 @@ export type BountyCreateWithoutSkillRequirementsInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1005,12 +1043,13 @@ export type BountyUncheckedCreateWithoutSkillRequirementsInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -1043,12 +1082,13 @@ export type BountyUpdateWithoutSkillRequirementsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1065,12 +1105,13 @@ export type BountyUncheckedUpdateWithoutSkillRequirementsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1087,12 +1128,13 @@ export type BountyCreateWithoutEquipmentRequirementsInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1109,12 +1151,13 @@ export type BountyUncheckedCreateWithoutEquipmentRequirementsInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -1147,12 +1190,13 @@ export type BountyUpdateWithoutEquipmentRequirementsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1169,12 +1213,13 @@ export type BountyUncheckedUpdateWithoutEquipmentRequirementsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1191,12 +1236,13 @@ export type BountyCreateManyPosterInput = {
   title: string
   description: string
   locationLabel: string
+  imageUrl?: string | null
   latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt: Date | string
   deadline: Date | string
-  minVolunteers: number
   maxVolunteers: number
+  payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1210,12 +1256,13 @@ export type BountyUpdateWithoutPosterInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1232,12 +1279,13 @@ export type BountyUncheckedUpdateWithoutPosterInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1254,12 +1302,13 @@ export type BountyUncheckedUpdateManyWithoutPosterInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   locationLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  minVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
+  payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1322,12 +1371,13 @@ export type BountySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   title?: boolean
   description?: boolean
   locationLabel?: boolean
+  imageUrl?: boolean
   latitude?: boolean
   longitude?: boolean
   scheduledAt?: boolean
   deadline?: boolean
-  minVolunteers?: boolean
   maxVolunteers?: boolean
+  payPerVolunteer?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1347,12 +1397,13 @@ export type BountySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   description?: boolean
   locationLabel?: boolean
+  imageUrl?: boolean
   latitude?: boolean
   longitude?: boolean
   scheduledAt?: boolean
   deadline?: boolean
-  minVolunteers?: boolean
   maxVolunteers?: boolean
+  payPerVolunteer?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1368,12 +1419,13 @@ export type BountySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   description?: boolean
   locationLabel?: boolean
+  imageUrl?: boolean
   latitude?: boolean
   longitude?: boolean
   scheduledAt?: boolean
   deadline?: boolean
-  minVolunteers?: boolean
   maxVolunteers?: boolean
+  payPerVolunteer?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1389,12 +1441,13 @@ export type BountySelectScalar = {
   title?: boolean
   description?: boolean
   locationLabel?: boolean
+  imageUrl?: boolean
   latitude?: boolean
   longitude?: boolean
   scheduledAt?: boolean
   deadline?: boolean
-  minVolunteers?: boolean
   maxVolunteers?: boolean
+  payPerVolunteer?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1404,7 +1457,7 @@ export type BountySelectScalar = {
   cancellationReason?: boolean
 }
 
-export type BountyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "locationLabel" | "latitude" | "longitude" | "scheduledAt" | "deadline" | "minVolunteers" | "maxVolunteers" | "status" | "posterId" | "createdAt" | "updatedAt" | "finishedAt" | "verifiedAt" | "cancellationReason", ExtArgs["result"]["bounty"]>
+export type BountyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "locationLabel" | "imageUrl" | "latitude" | "longitude" | "scheduledAt" | "deadline" | "maxVolunteers" | "payPerVolunteer" | "status" | "posterId" | "createdAt" | "updatedAt" | "finishedAt" | "verifiedAt" | "cancellationReason", ExtArgs["result"]["bounty"]>
 export type BountyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   poster?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   volunteerAttendances?: boolean | Prisma.Bounty$volunteerAttendancesArgs<ExtArgs>
@@ -1432,12 +1485,13 @@ export type $BountyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     title: string
     description: string
     locationLabel: string
+    imageUrl: string | null
     latitude: runtime.Decimal | null
     longitude: runtime.Decimal | null
     scheduledAt: Date
     deadline: Date
-    minVolunteers: number
     maxVolunteers: number
+    payPerVolunteer: runtime.Decimal
     status: $Enums.BountyStatus
     posterId: string
     createdAt: Date
@@ -1876,12 +1930,13 @@ export interface BountyFieldRefs {
   readonly title: Prisma.FieldRef<"Bounty", 'String'>
   readonly description: Prisma.FieldRef<"Bounty", 'String'>
   readonly locationLabel: Prisma.FieldRef<"Bounty", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"Bounty", 'String'>
   readonly latitude: Prisma.FieldRef<"Bounty", 'Decimal'>
   readonly longitude: Prisma.FieldRef<"Bounty", 'Decimal'>
   readonly scheduledAt: Prisma.FieldRef<"Bounty", 'DateTime'>
   readonly deadline: Prisma.FieldRef<"Bounty", 'DateTime'>
-  readonly minVolunteers: Prisma.FieldRef<"Bounty", 'Int'>
   readonly maxVolunteers: Prisma.FieldRef<"Bounty", 'Int'>
+  readonly payPerVolunteer: Prisma.FieldRef<"Bounty", 'Decimal'>
   readonly status: Prisma.FieldRef<"Bounty", 'BountyStatus'>
   readonly posterId: Prisma.FieldRef<"Bounty", 'String'>
   readonly createdAt: Prisma.FieldRef<"Bounty", 'DateTime'>
