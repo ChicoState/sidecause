@@ -2,11 +2,11 @@ export default function HelpPage() {
     return (
         <main>
             <section>
-                <h1>About Us</h1>
+                <h2>About Us</h2>
                 <p>TBD</p>
             </section>
             <section>
-                <h1>FAQ</h1>
+                <h2>FAQ</h2>
                 <h3>TBD</h3>
                 <p>TBD</p>
             </section>
