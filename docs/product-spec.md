@@ -105,17 +105,17 @@ requests `403`; missing or non-public resources `404`; and lifecycle conflicts
 (such as simultaneous attempts to take the final place) `409`. Internal errors never reveal
 implementation details.
 
-| Operation                                | Contract                                                                                                                                                                            |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/bounties`                      | Public, paginated list of public statuses. Supports `page`, `pageSize`, `status`, and location filtering defined during implementation. Returns `{ data, pagination }`.             |
+| Operation                                | Contract                                                                                                                                                                                                 |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/bounties`                      | Public, paginated list of public statuses. Supports `page`, `pageSize`, `status`, and location filtering defined during implementation. Returns `{ data, pagination }`.                                  |
 | `POST /api/bounties`                     | Authenticated creation. Accepts title, description, location, optional coordinates, schedule and deadline, maximum capacity, per-volunteer pay, and requirements. Returns the created bounty with `201`. |
-| `GET /api/bounties/:id`                  | Public only for a public-status bounty; otherwise returns `404`. Public responses never contain poster contact information.                                                         |
-| `GET /api/bounties/:id/poster-contact`   | Authenticated active attendee only. Returns the poster's permitted contact information.                                                                                             |
-| `POST /api/bounties/:id/volunteers`      | Authenticated. Atomically joins an open, unexpired bounty when capacity remains.                                                                                                    |
-| `DELETE /api/bounties/:id/volunteers/me` | Joined volunteer only. Withdraws and returns a full bounty to `OPEN`.                                                                                                               |
-| `POST /api/bounties/:id/completion`      | Poster only. Marks the bounty `FINISHED`.                                                                                                                                           |
-| `POST /api/bounties/:id/verification`    | Poster only. Marks a finished bounty verified.                                                                                                                                      |
-| `POST /api/bounties/:id/cancellation`    | Poster only. Cancels an open or full bounty; body may include `reason`.                                                                                                             |
+| `GET /api/bounties/:id`                  | Public only for a public-status bounty; otherwise returns `404`. Public responses never contain poster contact information.                                                                              |
+| `GET /api/bounties/:id/poster-contact`   | Authenticated active attendee only. Returns the poster's permitted contact information.                                                                                                                  |
+| `POST /api/bounties/:id/volunteers`      | Authenticated. Atomically joins an open, unexpired bounty when capacity remains.                                                                                                                         |
+| `DELETE /api/bounties/:id/volunteers/me` | Joined volunteer only. Withdraws and returns a full bounty to `OPEN`.                                                                                                                                    |
+| `POST /api/bounties/:id/completion`      | Poster only. Marks the bounty `FINISHED`.                                                                                                                                                                |
+| `POST /api/bounties/:id/verification`    | Poster only. Marks a finished bounty verified.                                                                                                                                                           |
+| `POST /api/bounties/:id/cancellation`    | Poster only. Cancels an open or full bounty; body may include `reason`.                                                                                                                                  |
 
 Inputs are validated at route-handler boundaries. Internal services receive
 trusted, typed inputs. State-changing operations must be transactional so
