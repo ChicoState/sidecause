@@ -86,12 +86,12 @@ integration tests.
 
 - [ ] An authenticated member can create a valid open bounty with a schedule,
       maximum capacity, per-volunteer pay, and skill/equipment requirements.
-- [ ] Visitors can browse a paginated list of `OPEN`, `FULL`, and
-      `FINISHED` bounties.
-- [ ] Cancelled and expired bounties never appear in public list or detail
-      responses.
+- [ ] Visitors can browse a paginated list of `OPEN` bounties.
+- [ ] A poster or active attendee can view a `FULL` or `FINISHED` bounty's
+      detail page; other viewers cannot.
+- [ ] Cancelled and expired bounties never appear in list or detail responses.
 - [ ] Public responses never include the poster's email; it is included only
-      for authenticated volunteers with active attendance on that bounty.
+      for the poster and authenticated volunteers with active attendance.
       Withdrawal immediately revokes access.
 
 **Verify:** Unit tests for input schemas and expiry calculation; integration
