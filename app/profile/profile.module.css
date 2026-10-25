@@ -1,28 +1,30 @@
 .profilePage {
   min-height: calc(90vh - 7rem);
-  padding: 1.5rem;
+  padding: 0.5rem;
 }
 
 .profileHeader {
+  position: relative;
   display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1rem;
+  align-items: start;
+  justify-content: left;
+  gap: 2rem;
   width: min(100%, 70rem);
   margin: 0 auto;
   padding: 2rem;
+  padding-inline-end: 5rem;
   background: var(--accent-soft);
 }
 
 .profileAvatar {
   display: grid;
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 7.5rem;
+  height: 7.5rem;
   flex-shrink: 0;
   place-items: center;
   border: 1px solid var(--line);
   border-radius: 50%;
-  font-size: 3rem;
+  font-size: 5rem;
 }
 
 .profileAvatarImage,
@@ -41,11 +43,6 @@
   font-size: clamp(2.5rem, 8vw, 5.5rem);
 }
 
-.profileMeta {
-  margin-top: 0.75rem;
-  color: var(--muted);
-}
-
 .profileStats {
   width: min(100%, 70rem);
   margin: 0 auto;
@@ -54,17 +51,28 @@
 
 .profileStats p {
   color: var(--muted);
+  background-color: #d0ffd3;
+  padding: 10px;
+  margin-right: 20%;
 }
 
 .settingsButton {
+  position: absolute;
+  top: 1rem;
+  inset-inline-end: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
   min-height: 2.75rem;
-  padding: 0.6rem 1rem;
+  padding: 0.2rem 0.6rem;
   border: 1px solid var(--ink);
   color: var(--ink);
   background: var(--canvas);
   font: inherit;
   font-weight: 700;
+  font-size: 24px;
   cursor: pointer;
+  margin: 0;
 }
 
 .settingsButton:hover {
@@ -270,6 +278,7 @@
     align-items: start;
     flex-direction: column;
     padding: 1.5rem;
+    padding-inline-end: 4.75rem;
   }
 
   .profileStats {

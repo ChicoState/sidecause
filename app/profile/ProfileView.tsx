@@ -81,23 +81,24 @@ export default function ProfileView({
           )}
         </div>
         <div>
-          <p className="eyebrow">Your profile</p>
           <h1 id="profile-title">{name ?? 'SideCause member'}</h1>
-          <p className={styles.profileMeta}>
+          <p className="eyebrow">
             Member since: {memberSince?.toLocaleDateString() ?? 'Recently'}
           </p>
         </div>
         <button
+          aria-label="Open profile settings"
           aria-haspopup="dialog"
           className={styles.settingsButton}
           onClick={() => setSettingsOpen(true)}
           type="button"
         >
-          Settings
+          ⚙
         </button>
       </section>
       <section aria-label="Profile activity" className={styles.profileStats}>
-        <p>Quests created: &mdash; &emsp; Quests completed: &mdash;</p>
+        <p>Quests created: -- &emsp; <br/> Quests completed: --</p>
+        <p>Level: -- &emsp; Total XP: --</p>
       </section>
       <ProfileSettings
         displayName={name ?? ''}
