@@ -6,14 +6,24 @@ import { useRouter } from 'next/navigation'
 
 import type { ProfileImageOption } from '../../lib/profile-images'
 
-import { updateDisplayNameAction } from './actions'
+import {
+  updateDisplayNameAction,
+  updateProfileDetailsAction,
+} from './actions'
 import { initialDisplayNameFormState } from './form-state'
+import { initialProfileDetailsFormState } from './profile-details-form-state'
 import styles from './profile.module.css'
 
 type ProfileSettingsProps = {
   imageOptions: ProfileImageOption[]
   isOpen: boolean
   displayName: string
+  location: string
+  description: string
+  onProfileDetailsSaved: (
+    location: string,
+    description: string,
+  ) => void
   onAvatarChange: (id: string) => void
   onClose: () => void
   saveState: 'idle' | 'saving' | 'saved' | 'error'
@@ -24,6 +34,9 @@ export default function ProfileSettings({
   imageOptions,
   isOpen,
   displayName,
+  location,
+  description,
+  onProfileDetailsSaved,
   onAvatarChange,
   onClose,
   saveState,
@@ -35,6 +48,11 @@ export default function ProfileSettings({
     useActionState(updateDisplayNameAction, {
       ...initialDisplayNameFormState,
       values: { displayName },
+    })
+  const [profileDetailsState, profileDetailsFormAction, isDetailsPending] =
+    useActionState(updateProfileDetailsAction, {
+      ...initialProfileDetailsFormState,
+      values: { description, location },
     })
 
   useEffect(() => {
@@ -51,8 +69,23 @@ export default function ProfileSettings({
   }, [isOpen, onClose])
 
   useEffect(() => {
-    if (displayNameState.success) router.refresh()
-  }, [displayNameState.success, router])
+    if (profileDetailsState.success) {
+      onProfileDetailsSaved(
+        profileDetailsState.values.location,
+        profileDetailsState.values.description,
+      )
+    }
+    if (displayNameState.success || profileDetailsState.success) {
+      router.refresh()
+    }
+  }, [
+    displayNameState.success,
+    onProfileDetailsSaved,
+    profileDetailsState.success,
+    profileDetailsState.values.description,
+    profileDetailsState.values.location,
+    router,
+  ])
 
   if (!isOpen) return null
 
@@ -79,6 +112,52 @@ export default function ProfileSettings({
           >
             ×
           </button>
+        </div>
+
+        <div className={styles.settingGroup}>
+          <div>
+            <h3>About you</h3>
+            <p className={styles.settingDescription}>
+              Share where you are and what you care about.
+            </p>
+          </div>
+          <form
+            action={profileDetailsFormAction}
+            className={styles.detailsForm}
+          >
+            <label htmlFor="profile-location">Location</label>
+            <input
+              autoComplete="address-level2"
+              defaultValue={profileDetailsState.values.location}
+              id="profile-location"
+              maxLength={100}
+              name="location"
+              placeholder="City, region"
+              type="text"
+            />
+            <label htmlFor="profile-description">Description</label>
+            <textarea
+              defaultValue={profileDetailsState.values.description}
+              id="profile-description"
+              maxLength={500}
+              name="description"
+              placeholder="Tell people a little about yourself"
+              rows={4}
+            />
+            <button disabled={isDetailsPending} type="submit">
+              {isDetailsPending ? 'Saving…' : 'Save details'}
+            </button>
+          </form>
+          {profileDetailsState.error && (
+            <p className={styles.settingError} role="alert">
+              {profileDetailsState.error}
+            </p>
+          )}
+          {profileDetailsState.success && (
+            <p className={styles.savedMessage} role="status">
+              {profileDetailsState.success}
+            </p>
+          )}
         </div>
 
         <div className={styles.settingGroup}>

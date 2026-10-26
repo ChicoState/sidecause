@@ -10,12 +10,16 @@ import styles from './profile.module.css'
 
 export default function ProfileView({
   avatarId,
+  description,
   imageOptions,
+  location,
   name,
   memberSince,
 }: {
   avatarId: string
+  description: string | null | undefined
   imageOptions: ProfileImageOption[]
+  location: string | null | undefined
   name: string | null | undefined
   memberSince: Date | undefined
 }) {
@@ -24,7 +28,18 @@ export default function ProfileView({
   const [saveState, setSaveState] = useState<
     'idle' | 'saving' | 'saved' | 'error'
   >('idle')
+  const [profileLocation, setProfileLocation] = useState(location ?? '')
+  const [profileDescription, setProfileDescription] = useState(
+    description ?? '',
+  )
   const closeSettings = useCallback(() => setSettingsOpen(false), [])
+  const handleProfileDetailsSaved = useCallback(
+    (nextLocation: string, nextDescription: string) => {
+      setProfileLocation(nextLocation)
+      setProfileDescription(nextDescription)
+    },
+    [],
+  )
   const chooseAvatar = useCallback(
     async (id: string) => {
       const previousAvatar = selectedAvatar
@@ -49,6 +64,8 @@ export default function ProfileView({
   const currentAvatar =
     imageOptions.find((avatar) => avatar.id === selectedAvatar) ??
     imageOptions[0]
+  const profileImageBackground =
+    currentAvatar && 'color' in currentAvatar ? currentAvatar.color : undefined
 
   return (
     <main className={styles.profilePage}>
@@ -57,10 +74,7 @@ export default function ProfileView({
           aria-label={`Selected profile image: ${currentAvatar?.label}`}
           className={styles.profileAvatar}
           style={{
-            backgroundColor:
-              currentAvatar && 'color' in currentAvatar
-                ? currentAvatar.color
-                : undefined,
+            backgroundColor: profileImageBackground,
           }}
         >
           {currentAvatar && 'imageUrl' in currentAvatar ? (
@@ -80,11 +94,22 @@ export default function ProfileView({
             </span>
           )}
         </div>
-        <div>
+        <div className={styles.profileIdentity}>
           <h1 id="profile-title">{name ?? 'SideCause member'}</h1>
-          <p className="eyebrow">
+          <p className={`${styles.profileMemberSince} eyebrow`}>
             Member since: {memberSince?.toLocaleDateString() ?? 'Recently'}
           </p>
+          <div className={styles.profileDetails}>
+            <p
+              className={
+                profileLocation ? '' : styles.profileDetailPrompt
+              }
+            >
+              {profileLocation
+                ? `📍 ${profileLocation}`
+                : '📍 Add your location in Settings'}
+            </p>
+          </div>
         </div>
         <button
           aria-label="Open profile settings"
@@ -95,20 +120,50 @@ export default function ProfileView({
         >
           ⚙
         </button>
-      </section>
-      <section aria-label="Profile activity" className={styles.profileStats}>
-        <p>Quests created: -- &emsp; <br/> Quests completed: --</p>
-        <p>Level: -- &emsp; Total XP: --</p>
+        <div className={styles.profileDescription}>
+          <p
+            className={
+              profileDescription ? '' : styles.profileDetailPrompt
+            }
+          >
+            {profileDescription || 'Add a description in Settings'}
+          </p>
+        </div>
+        <section
+          aria-label="Profile activity"
+          className={styles.profileStats}
+        >
+          <p style={{ backgroundColor: profileImageBackground }}>
+            Level: -- <br /> Total XP: --
+          </p>
+        </section>
       </section>
       <ProfileSettings
+        description={description ?? ''}
         displayName={name ?? ''}
         isOpen={settingsOpen}
         imageOptions={imageOptions}
+        location={location ?? ''}
         onAvatarChange={chooseAvatar}
         onClose={closeSettings}
+        onProfileDetailsSaved={handleProfileDetailsSaved}
         saveState={saveState}
         selectedAvatar={selectedAvatar}
       />
+      <section aria-label="Profile posts" className={styles.profilePosts}>
+        <div className={styles.profilePostColumn}>
+          <h2>Quests Completed: [#]</h2>
+          <div>
+            <p>COMPLETED POSTS GO HERE</p>
+          </div>
+        </div>
+        <div className={styles.profilePostColumn}>
+          <h2>Quests Posted: [#]</h2>
+          <div>
+            <p>POSTED POSTS GO HERE</p>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
