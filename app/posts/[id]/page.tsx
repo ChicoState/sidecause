@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { auth } from '../../../auth'
-import { getAccessiblePostDetail } from './detail-data'
+import { getAccessiblePostDetail, type PostDifficulty } from './detail-data'
 import styles from './detail.module.css'
 
 type PostDetailPageProps = {
@@ -103,6 +103,12 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
                 </dd>
               </div>
               <div className={styles.specification}>
+                <dt>Difficulty</dt>
+                <dd>
+                  <DifficultyCounter difficulty={post.difficulty} />
+                </dd>
+              </div>
+              <div className={styles.specification}>
                 <dt>Pay</dt>
                 <dd>{formatPay(post.payPerVolunteer)} per volunteer</dd>
               </div>
@@ -119,6 +125,44 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
         </div>
       </article>
     </main>
+  )
+}
+
+function DifficultyCounter({ difficulty }: { difficulty: PostDifficulty }) {
+  const levels: { value: PostDifficulty; label: string }[] = [
+    { value: 'EASY', label: 'Easy' },
+    { value: 'MEDIUM', label: 'Medium' },
+    { value: 'NORMAL', label: 'Normal' },
+    { value: 'HARD', label: 'Hard' },
+    { value: 'EXTRA_HARD', label: 'Extra hard' },
+  ]
+  const selectedIndex = levels.findIndex((level) => level.value === difficulty)
+  const selected = levels[selectedIndex]
+
+  return (
+    <span className={styles.difficulty}>
+      <span
+        className={styles.difficultySteps}
+        role="meter"
+        aria-label="Difficulty"
+        aria-valuemin={1}
+        aria-valuemax={levels.length}
+        aria-valuenow={selectedIndex + 1}
+        aria-valuetext={selected.label}
+      >
+        {levels.map((level, index) => (
+          <span
+            className={
+              index <= selectedIndex
+                ? styles.difficultyStepActive
+                : styles.difficultyStep
+            }
+            key={level.value}
+          />
+        ))}
+      </span>
+      <span>{selected.label}</span>
+    </span>
   )
 }
 

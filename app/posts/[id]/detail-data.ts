@@ -3,6 +3,9 @@ export type PostRequirement = {
   level: 'REQUIRED' | 'RECOMMENDED'
 }
 
+export type PostDifficulty =
+  'EASY' | 'MEDIUM' | 'NORMAL' | 'HARD' | 'EXTRA_HARD'
+
 export type PostDetailData = {
   id: string
   title: string
@@ -12,6 +15,7 @@ export type PostDetailData = {
   status: 'OPEN' | 'FULL' | 'FINISHED'
   scheduledAt: Date
   payPerVolunteer: number
+  difficulty: PostDifficulty
   maximumVolunteers: number
   currentVolunteers: number
   posterName: string
@@ -44,6 +48,7 @@ const databaseSource: PostDetailSource = {
         imageUrl: true,
         scheduledAt: true,
         payPerVolunteer: true,
+        difficulty: true,
         maxVolunteers: true,
         poster: { select: { displayName: true } },
         volunteerAttendances: {
@@ -114,6 +119,7 @@ const databaseSource: PostDetailSource = {
       status: bounty.status,
       scheduledAt: bounty.scheduledAt,
       payPerVolunteer: Number(bounty.payPerVolunteer),
+      difficulty: bounty.difficulty,
       maximumVolunteers: bounty.maxVolunteers,
       currentVolunteers,
       posterName: bounty.poster.displayName,

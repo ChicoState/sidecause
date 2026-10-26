@@ -188,6 +188,30 @@
   color: var(--muted);
 }
 
+.difficulty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.difficultySteps {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.difficultyStep,
+.difficultyStepActive {
+  width: 1.125rem;
+  height: 0.375rem;
+  border: 1px solid var(--line);
+  background: #fffefa;
+}
+
+.difficultyStepActive {
+  border-color: #52794b;
+  background: #8aa883;
+}
+
 .signupButton {
   width: 100%;
   min-height: 2.75rem;
