@@ -52,6 +52,7 @@ export type BountyMinAggregateOutputType = {
   deadline: Date | null
   maxVolunteers: number | null
   payPerVolunteer: runtime.Decimal | null
+  difficulty: $Enums.BountyDifficulty | null
   status: $Enums.BountyStatus | null
   posterId: string | null
   createdAt: Date | null
@@ -73,6 +74,7 @@ export type BountyMaxAggregateOutputType = {
   deadline: Date | null
   maxVolunteers: number | null
   payPerVolunteer: runtime.Decimal | null
+  difficulty: $Enums.BountyDifficulty | null
   status: $Enums.BountyStatus | null
   posterId: string | null
   createdAt: Date | null
@@ -94,6 +96,7 @@ export type BountyCountAggregateOutputType = {
   deadline: number
   maxVolunteers: number
   payPerVolunteer: number
+  difficulty: number
   status: number
   posterId: number
   createdAt: number
@@ -131,6 +134,7 @@ export type BountyMinAggregateInputType = {
   deadline?: true
   maxVolunteers?: true
   payPerVolunteer?: true
+  difficulty?: true
   status?: true
   posterId?: true
   createdAt?: true
@@ -152,6 +156,7 @@ export type BountyMaxAggregateInputType = {
   deadline?: true
   maxVolunteers?: true
   payPerVolunteer?: true
+  difficulty?: true
   status?: true
   posterId?: true
   createdAt?: true
@@ -173,6 +178,7 @@ export type BountyCountAggregateInputType = {
   deadline?: true
   maxVolunteers?: true
   payPerVolunteer?: true
+  difficulty?: true
   status?: true
   posterId?: true
   createdAt?: true
@@ -281,6 +287,7 @@ export type BountyGroupByOutputType = {
   deadline: Date
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal
+  difficulty: $Enums.BountyDifficulty
   status: $Enums.BountyStatus
   posterId: string
   createdAt: Date
@@ -325,6 +332,7 @@ export type BountyWhereInput = {
   deadline?: Prisma.DateTimeFilter<"Bounty"> | Date | string
   maxVolunteers?: Prisma.IntFilter<"Bounty"> | number
   payPerVolunteer?: Prisma.DecimalFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFilter<"Bounty"> | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
@@ -350,6 +358,7 @@ export type BountyOrderByWithRelationInput = {
   deadline?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   payPerVolunteer?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -378,6 +387,7 @@ export type BountyWhereUniqueInput = Prisma.AtLeast<{
   deadline?: Prisma.DateTimeFilter<"Bounty"> | Date | string
   maxVolunteers?: Prisma.IntFilter<"Bounty"> | number
   payPerVolunteer?: Prisma.DecimalFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFilter<"Bounty"> | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
@@ -403,6 +413,7 @@ export type BountyOrderByWithAggregationInput = {
   deadline?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   payPerVolunteer?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -432,6 +443,7 @@ export type BountyScalarWhereWithAggregatesInput = {
   deadline?: Prisma.DateTimeWithAggregatesFilter<"Bounty"> | Date | string
   maxVolunteers?: Prisma.IntWithAggregatesFilter<"Bounty"> | number
   payPerVolunteer?: Prisma.DecimalWithAggregatesFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyWithAggregatesFilter<"Bounty"> | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusWithAggregatesFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringWithAggregatesFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Bounty"> | Date | string
@@ -453,6 +465,7 @@ export type BountyCreateInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -477,6 +490,7 @@ export type BountyUncheckedCreateInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -501,6 +515,7 @@ export type BountyUpdateInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -525,6 +540,7 @@ export type BountyUncheckedUpdateInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -549,6 +565,7 @@ export type BountyCreateManyInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -570,6 +587,7 @@ export type BountyUpdateManyMutationInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -590,6 +608,7 @@ export type BountyUncheckedUpdateManyInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -621,6 +640,7 @@ export type BountyCountOrderByAggregateInput = {
   deadline?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   payPerVolunteer?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -649,6 +669,7 @@ export type BountyMaxOrderByAggregateInput = {
   deadline?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   payPerVolunteer?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -670,6 +691,7 @@ export type BountyMinOrderByAggregateInput = {
   deadline?: Prisma.SortOrder
   maxVolunteers?: Prisma.SortOrder
   payPerVolunteer?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
   posterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -761,6 +783,10 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type EnumBountyDifficultyFieldUpdateOperationsInput = {
+  set?: $Enums.BountyDifficulty
+}
+
 export type EnumBountyStatusFieldUpdateOperationsInput = {
   set?: $Enums.BountyStatus
 }
@@ -823,6 +849,7 @@ export type BountyCreateWithoutPosterInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -846,6 +873,7 @@ export type BountyUncheckedCreateWithoutPosterInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -898,6 +926,7 @@ export type BountyScalarWhereInput = {
   deadline?: Prisma.DateTimeFilter<"Bounty"> | Date | string
   maxVolunteers?: Prisma.IntFilter<"Bounty"> | number
   payPerVolunteer?: Prisma.DecimalFilter<"Bounty"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFilter<"Bounty"> | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFilter<"Bounty"> | $Enums.BountyStatus
   posterId?: Prisma.StringFilter<"Bounty"> | string
   createdAt?: Prisma.DateTimeFilter<"Bounty"> | Date | string
@@ -919,6 +948,7 @@ export type BountyCreateWithoutVolunteerAttendancesInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -942,6 +972,7 @@ export type BountyUncheckedCreateWithoutVolunteerAttendancesInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -981,6 +1012,7 @@ export type BountyUpdateWithoutVolunteerAttendancesInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1004,6 +1036,7 @@ export type BountyUncheckedUpdateWithoutVolunteerAttendancesInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1027,6 +1060,7 @@ export type BountyCreateWithoutSkillRequirementsInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1050,6 +1084,7 @@ export type BountyUncheckedCreateWithoutSkillRequirementsInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -1089,6 +1124,7 @@ export type BountyUpdateWithoutSkillRequirementsInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1112,6 +1148,7 @@ export type BountyUncheckedUpdateWithoutSkillRequirementsInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1135,6 +1172,7 @@ export type BountyCreateWithoutEquipmentRequirementsInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1158,6 +1196,7 @@ export type BountyUncheckedCreateWithoutEquipmentRequirementsInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   posterId: string
   createdAt?: Date | string
@@ -1197,6 +1236,7 @@ export type BountyUpdateWithoutEquipmentRequirementsInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1220,6 +1260,7 @@ export type BountyUncheckedUpdateWithoutEquipmentRequirementsInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   posterId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1243,6 +1284,7 @@ export type BountyCreateManyPosterInput = {
   deadline: Date | string
   maxVolunteers: number
   payPerVolunteer: runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty: $Enums.BountyDifficulty
   status?: $Enums.BountyStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1263,6 +1305,7 @@ export type BountyUpdateWithoutPosterInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1286,6 +1329,7 @@ export type BountyUncheckedUpdateWithoutPosterInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1309,6 +1353,7 @@ export type BountyUncheckedUpdateManyWithoutPosterInput = {
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxVolunteers?: Prisma.IntFieldUpdateOperationsInput | number
   payPerVolunteer?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  difficulty?: Prisma.EnumBountyDifficultyFieldUpdateOperationsInput | $Enums.BountyDifficulty
   status?: Prisma.EnumBountyStatusFieldUpdateOperationsInput | $Enums.BountyStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1378,6 +1423,7 @@ export type BountySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   deadline?: boolean
   maxVolunteers?: boolean
   payPerVolunteer?: boolean
+  difficulty?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1404,6 +1450,7 @@ export type BountySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   deadline?: boolean
   maxVolunteers?: boolean
   payPerVolunteer?: boolean
+  difficulty?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1426,6 +1473,7 @@ export type BountySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   deadline?: boolean
   maxVolunteers?: boolean
   payPerVolunteer?: boolean
+  difficulty?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1448,6 +1496,7 @@ export type BountySelectScalar = {
   deadline?: boolean
   maxVolunteers?: boolean
   payPerVolunteer?: boolean
+  difficulty?: boolean
   status?: boolean
   posterId?: boolean
   createdAt?: boolean
@@ -1457,7 +1506,7 @@ export type BountySelectScalar = {
   cancellationReason?: boolean
 }
 
-export type BountyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "locationLabel" | "imageUrl" | "latitude" | "longitude" | "scheduledAt" | "deadline" | "maxVolunteers" | "payPerVolunteer" | "status" | "posterId" | "createdAt" | "updatedAt" | "finishedAt" | "verifiedAt" | "cancellationReason", ExtArgs["result"]["bounty"]>
+export type BountyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "locationLabel" | "imageUrl" | "latitude" | "longitude" | "scheduledAt" | "deadline" | "maxVolunteers" | "payPerVolunteer" | "difficulty" | "status" | "posterId" | "createdAt" | "updatedAt" | "finishedAt" | "verifiedAt" | "cancellationReason", ExtArgs["result"]["bounty"]>
 export type BountyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   poster?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   volunteerAttendances?: boolean | Prisma.Bounty$volunteerAttendancesArgs<ExtArgs>
@@ -1492,6 +1541,7 @@ export type $BountyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     deadline: Date
     maxVolunteers: number
     payPerVolunteer: runtime.Decimal
+    difficulty: $Enums.BountyDifficulty
     status: $Enums.BountyStatus
     posterId: string
     createdAt: Date
@@ -1937,6 +1987,7 @@ export interface BountyFieldRefs {
   readonly deadline: Prisma.FieldRef<"Bounty", 'DateTime'>
   readonly maxVolunteers: Prisma.FieldRef<"Bounty", 'Int'>
   readonly payPerVolunteer: Prisma.FieldRef<"Bounty", 'Decimal'>
+  readonly difficulty: Prisma.FieldRef<"Bounty", 'BountyDifficulty'>
   readonly status: Prisma.FieldRef<"Bounty", 'BountyStatus'>
   readonly posterId: Prisma.FieldRef<"Bounty", 'String'>
   readonly createdAt: Prisma.FieldRef<"Bounty", 'DateTime'>
