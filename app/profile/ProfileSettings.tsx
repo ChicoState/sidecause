@@ -139,7 +139,7 @@ export default function ProfileSettings({
             <textarea
               defaultValue={profileDetailsState.values.description}
               id="profile-description"
-              maxLength={500}
+              maxLength={120}
               name="description"
               placeholder="Tell people a little about yourself"
               rows={4}

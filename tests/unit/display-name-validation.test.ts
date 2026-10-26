@@ -36,7 +36,7 @@ describe('validateProfileDescription', () => {
     )
   })
 
-  it('rejects descriptions longer than 500 characters', () => {
-    expect(() => validateProfileDescription('a'.repeat(501))).toThrow()
+  it('rejects descriptions longer than 120 characters', () => {
+    expect(() => validateProfileDescription('a'.repeat(121))).toThrow()
   })
 })

@@ -28,7 +28,7 @@ export function validateProfileLocation(value: string): string {
 export function validateProfileDescription(value: string): string {
   const description = value.trim()
 
-  if (description.length > 500) {
+  if (description.length > 120) {
     throw new Error(descriptionError)
   }
 
