@@ -45,6 +45,17 @@ OPEN or FULL --deadline passes--> EXPIRED
   `OPEN`.
 - A member may sign up for a bounty only once. After withdrawing, they cannot
   sign up for that bounty again.
+- The bounty detail page provides a sign-up action for eligible volunteers.
+  A visitor who selects it is sent to the sign-in page, where they can sign in
+  or create an account. After authentication, they return to the same bounty
+  detail page. Returning does not join them automatically; they select the
+  bounty's sign-up action again to join.
+- After joining, the bounty action changes to `Unenroll`. After withdrawing,
+  it changes to disabled `Unenrolled`; that member cannot join the same bounty
+  again.
+- A successful sign-up creates a volunteer-attendance record linking the
+  authenticated user and bounty. The relationship can be queried from either
+  the bounty or user record.
 - Only the poster may finish a bounty. Finishing requires no note, photograph,
   or attendee approval.
 - A poster may optionally verify a finished bounty. Verification is separate
@@ -81,6 +92,12 @@ Each bounty has:
   marked `REQUIRED` or `RECOMMENDED`.
 - The poster, zero or more attending volunteers, status, creation time, finish
   time, optional verification time, and optional cancellation reason.
+
+Volunteer sign-ups are stored in the relational `BountyVolunteer` table, with
+foreign keys to both `User` and `Bounty`. The composite key prevents duplicate
+sign-ups, and each model exposes the relation so joined bounties can be queried
+from either side. The authenticated user ID comes from the server session; it
+is never accepted from the sign-up form or request body.
 
 Display names are public where a poster or attendee is shown. The poster's
 account email is available only to the poster and authenticated volunteers

@@ -118,10 +118,21 @@ pages and components, unit/integration/e2e tests.
 
 **Acceptance criteria:**
 
+- [ ] The bounty detail page offers eligible volunteers a sign-up action. A
+      signed-out visitor is sent to the sign-in page, can sign in or create an
+      account, and returns to the same bounty detail page. Returning does not
+      join them automatically; they must select `Sign up` again.
 - [ ] A member can immediately join an open, unexpired bounty while capacity
       remains.
+- [ ] The sign-up operation takes the volunteer ID from the authenticated
+      server session, creates one `BountyVolunteer` record linking that user
+      and bounty, queryable through both the bounty's and user's attendance
+      relations.
 - [ ] A duplicate, late, or over-capacity join returns `409` and does not
       exceed `maxVolunteers`.
+- [ ] After joining, the bounty action changes to `Unenroll`; selecting it
+      withdraws the member. After withdrawal, the action is disabled and reads
+      `Unenrolled`, because the member cannot rejoin that bounty.
 - [ ] A joined volunteer can withdraw; withdrawing from a full bounty returns
       it to `OPEN` and revokes access to the poster's contact information.
 
