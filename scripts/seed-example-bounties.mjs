@@ -33,6 +33,7 @@ const examples = [
     imageUrl: '/posts/cedar-grove-cleanup.svg',
     daysUntilScheduled: 7,
     maxVolunteers: 8,
+    difficulty: 'EASY',
   },
   {
     id: 'example-food-pantry-sorting',
@@ -42,6 +43,7 @@ const examples = [
     imageUrl: '/posts/food-pantry-sorting.svg',
     daysUntilScheduled: 14,
     maxVolunteers: 6,
+    difficulty: 'NORMAL',
   },
   {
     id: 'example-community-garden',
@@ -51,6 +53,7 @@ const examples = [
     imageUrl: '/posts/community-garden.svg',
     daysUntilScheduled: 21,
     maxVolunteers: 5,
+    difficulty: 'HARD',
   },
 ]
 
@@ -100,8 +103,8 @@ try {
       `INSERT INTO "Bounty" (
          "id", "title", "description", "locationLabel", "imageUrl",
          "scheduledAt", "deadline", "maxVolunteers", "payPerVolunteer",
-         "status", "posterId", "createdAt", "updatedAt"
-       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 0, 'OPEN', $9, NOW(), NOW())
+         "difficulty", "status", "posterId", "createdAt", "updatedAt"
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 0, $9, 'OPEN', $10, NOW(), NOW())
        ON CONFLICT ("id") DO UPDATE SET
          "title" = EXCLUDED."title",
          "description" = EXCLUDED."description",
@@ -111,6 +114,7 @@ try {
          "deadline" = EXCLUDED."deadline",
          "maxVolunteers" = EXCLUDED."maxVolunteers",
          "payPerVolunteer" = EXCLUDED."payPerVolunteer",
+         "difficulty" = EXCLUDED."difficulty",
          "status" = EXCLUDED."status",
          "posterId" = EXCLUDED."posterId",
          "updatedAt" = NOW()`,
@@ -123,6 +127,7 @@ try {
         scheduledAt,
         deadline,
         example.maxVolunteers,
+        example.difficulty,
         posterId,
       ],
     )

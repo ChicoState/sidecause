@@ -26,6 +26,14 @@ enum BountyStatus {
   EXPIRED
 }
 
+enum BountyDifficulty {
+  EASY
+  MEDIUM
+  NORMAL
+  HARD
+  EXTRA_HARD
+}
+
 enum RequirementLevel {
   REQUIRED
   RECOMMENDED
@@ -48,6 +56,7 @@ model Bounty {
   deadline              DateTime
   maxVolunteers         Int
   payPerVolunteer       Decimal                      @db.Decimal(10, 2)
+  difficulty            BountyDifficulty
   status                BountyStatus                 @default(OPEN)
   posterId              String
   createdAt             DateTime                     @default(now())

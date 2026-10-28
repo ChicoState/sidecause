@@ -93,10 +93,10 @@ describe('bounty schema', () => {
         client.query(
           `INSERT INTO "Bounty" (
             "id", "title", "description", "locationLabel", "scheduledAt",
-            "deadline", "maxVolunteers", "payPerVolunteer", "posterId", "updatedAt"
+            "deadline", "maxVolunteers", "payPerVolunteer", "difficulty", "posterId", "updatedAt"
           ) VALUES (
             $1, 'Invalid capacity', 'Test record', 'Test location', CURRENT_TIMESTAMP,
-            CURRENT_TIMESTAMP, 1, -1.00, $2, CURRENT_TIMESTAMP
+            CURRENT_TIMESTAMP, 1, -1.00, 'NORMAL', $2, CURRENT_TIMESTAMP
           )`,
           [`invalid-pay-${randomUUID()}`, posterId],
         ),
@@ -113,10 +113,10 @@ describe('bounty schema', () => {
         client.query(
           `INSERT INTO "Bounty" (
             "id", "title", "description", "locationLabel", "latitude", "scheduledAt",
-            "deadline", "maxVolunteers", "payPerVolunteer", "posterId", "updatedAt"
+            "deadline", "maxVolunteers", "payPerVolunteer", "difficulty", "posterId", "updatedAt"
           ) VALUES (
             $1, 'Invalid coordinates', 'Test record', 'Test location', 39.7285,
-            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 0.00, $2, CURRENT_TIMESTAMP
+            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 0.00, 'NORMAL', $2, CURRENT_TIMESTAMP
           )`,
           [`invalid-coordinates-${randomUUID()}`, posterId],
         ),
@@ -130,10 +130,10 @@ describe('bounty schema', () => {
       await client.query(
         `INSERT INTO "Bounty" (
           "id", "title", "description", "locationLabel", "scheduledAt",
-            "deadline", "maxVolunteers", "payPerVolunteer", "posterId", "updatedAt"
+            "deadline", "maxVolunteers", "payPerVolunteer", "difficulty", "posterId", "updatedAt"
         ) VALUES (
           $1, 'Valid task', 'Test record', 'Test location', CURRENT_TIMESTAMP,
-          CURRENT_TIMESTAMP, 2, 0.00, $2, CURRENT_TIMESTAMP
+          CURRENT_TIMESTAMP, 2, 0.00, 'NORMAL', $2, CURRENT_TIMESTAMP
         )`,
         [bountyId, posterId],
       )

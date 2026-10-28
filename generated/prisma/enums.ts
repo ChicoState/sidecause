@@ -20,6 +20,17 @@ export const BountyStatus = {
 export type BountyStatus = (typeof BountyStatus)[keyof typeof BountyStatus]
 
 
+export const BountyDifficulty = {
+  EASY: 'EASY',
+  MEDIUM: 'MEDIUM',
+  NORMAL: 'NORMAL',
+  HARD: 'HARD',
+  EXTRA_HARD: 'EXTRA_HARD'
+} as const
+
+export type BountyDifficulty = (typeof BountyDifficulty)[keyof typeof BountyDifficulty]
+
+
 export const RequirementLevel = {
   REQUIRED: 'REQUIRED',
   RECOMMENDED: 'RECOMMENDED'

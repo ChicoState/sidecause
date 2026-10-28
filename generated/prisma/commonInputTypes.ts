@@ -120,6 +120,13 @@ export type DecimalFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDecimalFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type EnumBountyDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.BountyDifficulty | Prisma.EnumBountyDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBountyDifficultyFilter<$PrismaModel> | $Enums.BountyDifficulty
+}
+
 export type EnumBountyStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.BountyStatus | Prisma.EnumBountyStatusFieldRefInput<$PrismaModel>
   in?: $Enums.BountyStatus[] | Prisma.ListEnumBountyStatusFieldRefInput<$PrismaModel>
@@ -207,6 +214,16 @@ export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalFilter<$PrismaModel>
+}
+
+export type EnumBountyDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BountyDifficulty | Prisma.EnumBountyDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBountyDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.BountyDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBountyDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBountyDifficultyFilter<$PrismaModel>
 }
 
 export type EnumBountyStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -370,6 +387,13 @@ export type NestedDecimalFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDecimalFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type NestedEnumBountyDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.BountyDifficulty | Prisma.EnumBountyDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBountyDifficultyFilter<$PrismaModel> | $Enums.BountyDifficulty
+}
+
 export type NestedEnumBountyStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.BountyStatus | Prisma.EnumBountyStatusFieldRefInput<$PrismaModel>
   in?: $Enums.BountyStatus[] | Prisma.ListEnumBountyStatusFieldRefInput<$PrismaModel>
@@ -473,6 +497,16 @@ export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalFilter<$PrismaModel>
+}
+
+export type NestedEnumBountyDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BountyDifficulty | Prisma.EnumBountyDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BountyDifficulty[] | Prisma.ListEnumBountyDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBountyDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.BountyDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBountyDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBountyDifficultyFilter<$PrismaModel>
 }
 
 export type NestedEnumBountyStatusWithAggregatesFilter<$PrismaModel = never> = {

@@ -65,7 +65,8 @@ Prisma migration.
 
 - [ ] The schema represents locations, scheduled date/time, joining deadline,
       maximum capacity, per-volunteer pay, lifecycle status, poster, completion, verification, and
-      cancellation reason.
+      cancellation reason, and a required difficulty from `EASY`, `MEDIUM`,
+      `NORMAL`, `HARD`, or `EXTRA_HARD`.
 - [ ] A volunteer-attendance relation makes one attendance record per member
       and bounty unambiguous, and supports an attendee list.
 - [ ] Requirement relations store distinct skills and equipment with a
@@ -85,13 +86,16 @@ integration tests.
 **Acceptance criteria:**
 
 - [ ] An authenticated member can create a valid open bounty with a schedule,
-      maximum capacity, per-volunteer pay, and skill/equipment requirements.
-- [ ] Visitors can browse a paginated list of `OPEN`, `FULL`, and
-      `FINISHED` bounties.
-- [ ] Cancelled and expired bounties never appear in public list or detail
-      responses.
+      maximum capacity, per-volunteer pay, poster-selected difficulty, and
+      skill/equipment requirements.
+- [ ] The post detail page displays the saved difficulty on a five-step scale
+      between volunteer count and pay.
+- [ ] Visitors can browse a paginated list of `OPEN` bounties.
+- [ ] A poster or active attendee can view a `FULL` or `FINISHED` bounty's
+      detail page; other viewers cannot.
+- [ ] Cancelled and expired bounties never appear in list or detail responses.
 - [ ] Public responses never include the poster's email; it is included only
-      for authenticated volunteers with active attendance on that bounty.
+      for the poster and authenticated volunteers with active attendance.
       Withdrawal immediately revokes access.
 
 **Verify:** Unit tests for input schemas and expiry calculation; integration
@@ -114,11 +118,22 @@ pages and components, unit/integration/e2e tests.
 
 **Acceptance criteria:**
 
-- [ ] A member can immediately join an open, unexpired bounty while capacity
+- [x] The bounty detail page offers eligible volunteers a sign-up action. A
+      signed-out visitor is sent to the sign-in page, can sign in or create an
+      account, and returns to the same bounty detail page. Returning does not
+      join them automatically; they must select `Sign up` again.
+- [x] A member can immediately join an open, unexpired bounty while capacity
       remains.
-- [ ] A duplicate, late, or over-capacity join returns `409` and does not
+- [x] The sign-up operation takes the volunteer ID from the authenticated
+      server session, creates one `BountyVolunteer` record linking that user
+      and bounty, queryable through both the bounty's and user's attendance
+      relations.
+- [x] A duplicate, late, or over-capacity join returns `409` and does not
       exceed `maxVolunteers`.
-- [ ] A joined volunteer can withdraw; withdrawing from a full bounty returns
+- [x] After joining, the bounty action changes to `Unenroll`; selecting it
+      withdraws the member. After withdrawal, the action is disabled and reads
+      `Unenrolled`, because the member cannot rejoin that bounty.
+- [x] A joined volunteer can withdraw; withdrawing from a full bounty returns
       it to `OPEN` and revokes access to the poster's contact information.
 
 **Verify:** Concurrent integration test for last-slot join attempts; browser
