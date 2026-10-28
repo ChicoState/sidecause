@@ -5,7 +5,7 @@ import { useActionState, useState } from 'react'
 import { initialRegisterFormState } from '../../lib/auth/form-state'
 import { registerAction } from './actions'
 
-export function RegisterForm() {
+export function RegisterForm({ returnTo = '/' }: { returnTo?: string }) {
   const [state, formAction, isPending] = useActionState(
     registerAction,
     initialRegisterFormState,
@@ -17,6 +17,7 @@ export function RegisterForm() {
 
   return (
     <form action={formAction} className="account-form">
+      <input name="returnTo" type="hidden" value={returnTo} />
       {state.error && (
         <p className="form-error" role="alert">
           {state.error}

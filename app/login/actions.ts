@@ -7,6 +7,7 @@ import {
   initialLoginFormState,
   type LoginFormState,
 } from '../../lib/auth/form-state'
+import { getSafePostReturnTo } from '../../lib/auth/return-to'
 import { validateLogin } from '../../lib/auth/validation'
 
 export async function loginAction(
@@ -14,6 +15,7 @@ export async function loginAction(
   formData: FormData,
 ): Promise<LoginFormState> {
   const values = { email: String(formData.get('email') ?? '').trim() }
+  const returnTo = getSafePostReturnTo(formData.get('returnTo'))
   let credentials: { email: string; password: string }
 
   try {
@@ -29,7 +31,7 @@ export async function loginAction(
   }
 
   try {
-    await signIn('credentials', { ...credentials, redirectTo: '/' })
+    await signIn('credentials', { ...credentials, redirectTo: returnTo })
   } catch (error) {
     if (error instanceof AuthError) {
       return {
