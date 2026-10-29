@@ -4,9 +4,9 @@ export default function HelpPage() {
       <section className="hero" aria-labelledby="hero-title">
         <h2 id="hero-title">What is this about?</h2>
         <p>
-          Side Cause is a volunteering site that uses a &quot;bounty&quot; system. Local
-          businesses and charities benefit from the help they get, and
-          volunteers get a cash reward out of it. Everyone wins!
+          Side Cause is a volunteering site that uses a &quot;bounty&quot;
+          system. Local businesses and charities benefit from the help they get,
+          and volunteers get a cash reward out of it. Everyone wins!
         </p>
         <h3>For volunteers</h3>
         <p>
