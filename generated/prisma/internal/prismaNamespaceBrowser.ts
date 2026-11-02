@@ -98,6 +98,7 @@ export const BountyScalarFieldEnum = {
   deadline: 'deadline',
   maxVolunteers: 'maxVolunteers',
   payPerVolunteer: 'payPerVolunteer',
+  difficulty: 'difficulty',
   status: 'status',
   posterId: 'posterId',
   createdAt: 'createdAt',

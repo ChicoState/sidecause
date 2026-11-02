@@ -29,12 +29,14 @@ describe('PostsList', () => {
     expect(screen.getByText('Park cleanup')).toBeTruthy()
     expect(screen.getByText('Bidwell Park')).toBeTruthy()
     expect(screen.getByText('Food drive')).toBeTruthy()
+    expect(screen.getAllByRole('link', { name: /More details/ })).toHaveLength(
+      2,
+    )
     expect(
-      screen.getAllByRole('button', { name: /More details/ }),
-    ).toHaveLength(2)
-    expect(
-      screen.getAllByRole('button', { name: /More details/ })[0],
-    ).toHaveProperty('disabled', true)
+      screen
+        .getByRole('link', { name: 'More details about Park cleanup' })
+        .getAttribute('href'),
+    ).toBe('/posts/park-cleanup')
   })
 
   it('shows the empty state when no posts are available', () => {
