@@ -22,8 +22,7 @@
   margin: 1.25rem 0;
 }
 
-.controls button,
-.postCard button {
+.controls button {
   font: inherit;
   color: var(--ink);
   border: 1px solid var(--ink);
@@ -37,8 +36,7 @@
   text-align: left;
 }
 
-.controls button:disabled,
-.postCard button:disabled {
+.controls button:disabled {
   cursor: not-allowed;
   opacity: 1;
 }
@@ -102,6 +100,8 @@
 }
 
 .detailsButton {
+  display: inline-flex;
+  align-items: center;
   justify-self: start;
   min-height: 2.75rem;
   margin: 0 1rem 1rem;
@@ -112,8 +112,17 @@
   background: var(--canvas);
   font: inherit;
   font-weight: 700;
-  cursor: not-allowed;
-  opacity: 0.75;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.detailsButton:hover {
+  background: var(--accent-soft);
+}
+
+.detailsButton:focus-visible {
+  outline: 3px solid #236e69;
+  outline-offset: 3px;
 }
 
 .emptyState {

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import type { PostCardData } from './post-data'
 import styles from './posts.module.css'
@@ -44,14 +45,13 @@ export function PostsList({ posts }: PostsListProps) {
               <h2>{post.title}</h2>
               <p>{post.location}</p>
             </div>
-            <button
-              aria-label={`More details about ${post.title} (coming soon)`}
+            <Link
+              aria-label={`More details about ${post.title}`}
               className={styles.detailsButton}
-              disabled
-              type="button"
+              href={`/posts/${encodeURIComponent(post.id)}`}
             >
               More details
-            </button>
+            </Link>
           </article>
         </li>
       ))}

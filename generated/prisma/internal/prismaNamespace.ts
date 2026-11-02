@@ -854,6 +854,7 @@ export const BountyScalarFieldEnum = {
   deadline: 'deadline',
   maxVolunteers: 'maxVolunteers',
   payPerVolunteer: 'payPerVolunteer',
+  difficulty: 'difficulty',
   status: 'status',
   posterId: 'posterId',
   createdAt: 'createdAt',
@@ -981,6 +982,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+/**
+ * Reference to a field of type 'BountyDifficulty'
+ */
+export type EnumBountyDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BountyDifficulty'>
+
+
+
+/**
+ * Reference to a field of type 'BountyDifficulty[]'
+ */
+export type ListEnumBountyDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BountyDifficulty[]'>
+
 
 
 /**

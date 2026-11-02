@@ -32,19 +32,21 @@ before returning listing records. The current server boundary accepts only
 same-origin paths or HTTPS URLs and falls back to a neutral image block for
 missing or invalid values.
 
-## Future details page fields
+## Details page fields and access
 
-The collaborator's schema should also support the later details page with:
+The detail route reads these additional fields from the server:
 
 - Event date and time.
 - Description summary.
 - Pay per volunteer.
 - Required skills and equipment.
 - Maximum volunteer capacity.
-- Volunteer signups and their public display names.
-- Uploader public display name and private contact information.
+- Current volunteer count and the viewer's own attendance state.
+- Poster display name and, only for the poster or an active attendee, poster
+  email.
 
-Signing up is immediate. A volunteer who has signed up may see the uploader's
-contact information; visitors and members who have not signed up may not. Keep
-that authorization check in the server-side details read path when it is built.
-The Posts listing itself has no signup action or details navigation yet.
+`OPEN` details are public. `FULL` and `FINISHED` details are visible only to the
+poster or an active attendee; cancelled and expired records remain hidden. The
+Posts listing remains limited to available `OPEN` bounties, so discovery for
+full and finished posts is future work. Signup and unenroll controls on the
+detail page are visual placeholders; no mutation is performed yet.

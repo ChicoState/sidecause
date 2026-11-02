@@ -65,7 +65,8 @@ Prisma migration.
 
 - [ ] The schema represents locations, scheduled date/time, joining deadline,
       maximum capacity, per-volunteer pay, lifecycle status, poster, completion, verification, and
-      cancellation reason.
+      cancellation reason, and a required difficulty from `EASY`, `MEDIUM`,
+      `NORMAL`, `HARD`, or `EXTRA_HARD`.
 - [ ] A volunteer-attendance relation makes one attendance record per member
       and bounty unambiguous, and supports an attendee list.
 - [ ] Requirement relations store distinct skills and equipment with a
@@ -85,13 +86,16 @@ integration tests.
 **Acceptance criteria:**
 
 - [ ] An authenticated member can create a valid open bounty with a schedule,
-      maximum capacity, per-volunteer pay, and skill/equipment requirements.
-- [ ] Visitors can browse a paginated list of `OPEN`, `FULL`, and
-      `FINISHED` bounties.
-- [ ] Cancelled and expired bounties never appear in public list or detail
-      responses.
+      maximum capacity, per-volunteer pay, poster-selected difficulty, and
+      skill/equipment requirements.
+- [ ] The post detail page displays the saved difficulty on a five-step scale
+      between volunteer count and pay.
+- [ ] Visitors can browse a paginated list of `OPEN` bounties.
+- [ ] A poster or active attendee can view a `FULL` or `FINISHED` bounty's
+      detail page; other viewers cannot.
+- [ ] Cancelled and expired bounties never appear in list or detail responses.
 - [ ] Public responses never include the poster's email; it is included only
-      for authenticated volunteers with active attendance on that bounty.
+      for the poster and authenticated volunteers with active attendance.
       Withdrawal immediately revokes access.
 
 **Verify:** Unit tests for input schemas and expiry calculation; integration
