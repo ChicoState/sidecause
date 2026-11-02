@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { auth } from '../../auth'
 import { prisma } from '../../lib/prisma'
 import { getProfileImageOptions } from '../../lib/profile-images'
+import { getLevelForXp } from '../../lib/xp'
 import ProfileView from './ProfileView'
 
 export default async function ProfilePage() {
@@ -16,6 +17,7 @@ export default async function ProfilePage() {
       avatarId: true,
       createdAt: true,
       description: true,
+      xp: true,
       displayName: true,
       location: true,
       locationId: true,
@@ -32,6 +34,8 @@ export default async function ProfilePage() {
       location={user?.location}
       locationId={user?.locationId}
       description={user?.description}
+      level={getLevelForXp(user?.xp ?? 0)}
+      xp={user?.xp ?? 0}
     />
   )
 }

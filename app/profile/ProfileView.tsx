@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 import Image from 'next/image'
 
 import type { ProfileImageOption } from '../../lib/profile-images'
+import { getXpProgressPercent } from '../../lib/xp'
 
 import ProfileSettings from './ProfileSettings'
 import styles from './profile.module.css'
@@ -12,18 +13,22 @@ export default function ProfileView({
   avatarId,
   description,
   imageOptions,
+  level,
   location,
   locationId,
   name,
   memberSince,
+  xp,
 }: {
   avatarId: string
   description: string | null | undefined
   imageOptions: ProfileImageOption[]
+  level: number
   location: string | null | undefined
   locationId: string | null | undefined
   name: string | null | undefined
   memberSince: Date | undefined
+  xp: number
 }) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [selectedAvatar, setSelectedAvatar] = useState(avatarId)
@@ -68,6 +73,7 @@ export default function ProfileView({
     imageOptions[0]
   const profileImageBackground =
     currentAvatar && 'color' in currentAvatar ? currentAvatar.color : undefined
+  const xpProgressPercent = getXpProgressPercent(xp)
 
   return (
     <main className={styles.profilePage}>
@@ -124,9 +130,28 @@ export default function ProfileView({
           </p>
         </div>
         <section aria-label="Profile activity" className={styles.profileStats}>
-          <p style={{ backgroundColor: profileImageBackground }}>
-            Level: -- <br /> Total XP: --
-          </p>
+          <div
+            className={styles.profileStatsCard}
+            style={{ backgroundColor: profileImageBackground }}
+          >
+            <div className={styles.levelRow}>
+              <span>Level: {level}</span>
+              <div
+                aria-label={`${xpProgressPercent}% toward level ${level + 1}`}
+                aria-valuemax={100}
+                aria-valuemin={0}
+                aria-valuenow={xpProgressPercent}
+                className={styles.xpProgress}
+                role="progressbar"
+              >
+                <span
+                  className={styles.xpProgressFill}
+                  style={{ width: `${xpProgressPercent}%` }}
+                />
+              </div>
+            </div>
+            <span>Total XP: {xp}</span>
+          </div>
         </section>
       </section>
       <ProfileSettings

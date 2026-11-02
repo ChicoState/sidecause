@@ -62,6 +62,14 @@ Each bounty has:
 Display names are public where a poster or claimant is shown. Email addresses,
 password hashes, and authentication/session data are never public.
 
+## Experience progression
+
+Members have a lifetime `xp` total stored on their account. Level is derived
+server-side from XP: level 1 starts at 0 XP, and each additional 100 XP adds
+one level. XP can only be awarded by server-side application services for
+authorized events; clients cannot choose a user or directly submit an XP
+award. The signed-in profile displays the member's current level and total XP.
+
 ## Application boundary and API contract
 
 Use the Next.js App Router only; `pages/` remains unused. Public reads remain
@@ -148,7 +156,7 @@ docs/                Product specification, decisions, and implementation plans
 
 ## Explicitly deferred
 
-- Payments and experience-point rewards.
+- Payments and event-specific experience-point rewards.
 - Multiple volunteers per bounty. A future additive `volunteerCapacity` field
   may extend the one-volunteer model.
 - Bounty editing, proof uploads, comments, reporting, and moderation.

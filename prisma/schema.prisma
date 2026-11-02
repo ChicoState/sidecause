@@ -22,6 +22,7 @@ model User {
   description  String?
   passwordHash String
   avatarId     String   @default("sprout")
+  xp           Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
