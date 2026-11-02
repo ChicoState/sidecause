@@ -6,12 +6,10 @@ import { useRouter } from 'next/navigation'
 
 import type { ProfileImageOption } from '../../lib/profile-images'
 
-import {
-  updateDisplayNameAction,
-  updateProfileDetailsAction,
-} from './actions'
+import { updateDisplayNameAction, updateProfileDetailsAction } from './actions'
 import { initialDisplayNameFormState } from './form-state'
 import { initialProfileDetailsFormState } from './profile-details-form-state'
+import LocationCombobox from './LocationCombobox'
 import styles from './profile.module.css'
 
 type ProfileSettingsProps = {
@@ -19,11 +17,9 @@ type ProfileSettingsProps = {
   isOpen: boolean
   displayName: string
   location: string
+  locationId: string
   description: string
-  onProfileDetailsSaved: (
-    location: string,
-    description: string,
-  ) => void
+  onProfileDetailsSaved: (location: string, description: string) => void
   onAvatarChange: (id: string) => void
   onClose: () => void
   saveState: 'idle' | 'saving' | 'saved' | 'error'
@@ -35,6 +31,7 @@ export default function ProfileSettings({
   isOpen,
   displayName,
   location,
+  locationId,
   description,
   onProfileDetailsSaved,
   onAvatarChange,
@@ -116,88 +113,6 @@ export default function ProfileSettings({
 
         <div className={styles.settingGroup}>
           <div>
-            <h3>About you</h3>
-            <p className={styles.settingDescription}>
-              Share where you are and what you care about.
-            </p>
-          </div>
-          <form
-            action={profileDetailsFormAction}
-            className={styles.detailsForm}
-          >
-            <label htmlFor="profile-location">Location</label>
-            <input
-              autoComplete="address-level2"
-              defaultValue={profileDetailsState.values.location}
-              id="profile-location"
-              maxLength={100}
-              name="location"
-              placeholder="City, region"
-              type="text"
-            />
-            <label htmlFor="profile-description">Description</label>
-            <textarea
-              defaultValue={profileDetailsState.values.description}
-              id="profile-description"
-              maxLength={120}
-              name="description"
-              placeholder="Tell people a little about yourself"
-              rows={4}
-            />
-            <button disabled={isDetailsPending} type="submit">
-              {isDetailsPending ? 'Saving…' : 'Save details'}
-            </button>
-          </form>
-          {profileDetailsState.error && (
-            <p className={styles.settingError} role="alert">
-              {profileDetailsState.error}
-            </p>
-          )}
-          {profileDetailsState.success && (
-            <p className={styles.savedMessage} role="status">
-              {profileDetailsState.success}
-            </p>
-          )}
-        </div>
-
-        <div className={styles.settingGroup}>
-          <div>
-            <h3>Display name</h3>
-            <p className={styles.settingDescription}>
-              This is the name other SideCause members will see.
-            </p>
-          </div>
-          <form action={displayNameFormAction} className={styles.nameForm}>
-            <label className={styles.visuallyHidden} htmlFor="display-name">
-              Display name
-            </label>
-            <input
-              autoComplete="nickname"
-              defaultValue={displayNameState.values.displayName}
-              id="display-name"
-              maxLength={30}
-              name="displayName"
-              required
-              type="text"
-            />
-            <button disabled={isDisplayNamePending} type="submit">
-              {isDisplayNamePending ? 'Saving…' : 'Save name'}
-            </button>
-          </form>
-          {displayNameState.error && (
-            <p className={styles.settingError} role="alert">
-              {displayNameState.error}
-            </p>
-          )}
-          {displayNameState.success && (
-            <p className={styles.savedMessage} role="status">
-              {displayNameState.success}
-            </p>
-          )}
-        </div>
-
-        <div className={styles.settingGroup}>
-          <div>
             <h3>Profile image</h3>
             <p className={styles.settingDescription}>
               Choose an image from the SideCause collection.
@@ -249,6 +164,83 @@ export default function ProfileSettings({
             {saveState === 'saved' && 'Saved to your profile.'}
             {saveState === 'error' && 'Could not save your profile image.'}
           </p>
+        </div>
+
+        <div className={styles.settingGroup}>
+          <div>
+            <h3>Display name</h3>
+            <p className={styles.settingDescription}>
+              This is the name other SideCause members will see.
+            </p>
+          </div>
+          <form action={displayNameFormAction} className={styles.nameForm}>
+            <label className={styles.visuallyHidden} htmlFor="display-name">
+              Display name
+            </label>
+            <input
+              autoComplete="nickname"
+              defaultValue={displayNameState.values.displayName}
+              id="display-name"
+              maxLength={30}
+              name="displayName"
+              required
+              type="text"
+            />
+            <button disabled={isDisplayNamePending} type="submit">
+              {isDisplayNamePending ? 'Saving…' : 'Save name'}
+            </button>
+          </form>
+          {displayNameState.error && (
+            <p className={styles.settingError} role="alert">
+              {displayNameState.error}
+            </p>
+          )}
+          {displayNameState.success && (
+            <p className={styles.savedMessage} role="status">
+              {displayNameState.success}
+            </p>
+          )}
+        </div>
+
+        <div className={styles.settingGroup}>
+          <div>
+            <h3>About you</h3>
+            <p className={styles.settingDescription}>
+              Share where you are and what you care about.
+            </p>
+          </div>
+          <form
+            action={profileDetailsFormAction}
+            className={styles.detailsForm}
+          >
+            <label htmlFor="profile-location">Location</label>
+            <LocationCombobox
+              initialLocation={profileDetailsState.values.location}
+              initialLocationId={locationId}
+            />
+            <label htmlFor="profile-description">Description</label>
+            <textarea
+              defaultValue={profileDetailsState.values.description}
+              id="profile-description"
+              maxLength={120}
+              name="description"
+              placeholder="Tell people a little about yourself"
+              rows={4}
+            />
+            <button disabled={isDetailsPending} type="submit">
+              {isDetailsPending ? 'Saving…' : 'Save details'}
+            </button>
+          </form>
+          {profileDetailsState.error && (
+            <p className={styles.settingError} role="alert">
+              {profileDetailsState.error}
+            </p>
+          )}
+          {profileDetailsState.success && (
+            <p className={styles.savedMessage} role="status">
+              {profileDetailsState.success}
+            </p>
+          )}
         </div>
 
         <div className={styles.settingPlaceholder}>

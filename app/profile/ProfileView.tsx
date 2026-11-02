@@ -13,6 +13,7 @@ export default function ProfileView({
   description,
   imageOptions,
   location,
+  locationId,
   name,
   memberSince,
 }: {
@@ -20,6 +21,7 @@ export default function ProfileView({
   description: string | null | undefined
   imageOptions: ProfileImageOption[]
   location: string | null | undefined
+  locationId: string | null | undefined
   name: string | null | undefined
   memberSince: Date | undefined
 }) {
@@ -100,11 +102,7 @@ export default function ProfileView({
             Member since: {memberSince?.toLocaleDateString() ?? 'Recently'}
           </p>
           <div className={styles.profileDetails}>
-            <p
-              className={
-                profileLocation ? '' : styles.profileDetailPrompt
-              }
-            >
+            <p className={profileLocation ? '' : styles.profileDetailPrompt}>
               {profileLocation
                 ? `📍 ${profileLocation}`
                 : '📍 Add your location in Settings'}
@@ -121,18 +119,11 @@ export default function ProfileView({
           ⚙
         </button>
         <div className={styles.profileDescription}>
-          <p
-            className={
-              profileDescription ? '' : styles.profileDetailPrompt
-            }
-          >
+          <p className={profileDescription ? '' : styles.profileDetailPrompt}>
             {profileDescription || 'Add a description in Settings'}
           </p>
         </div>
-        <section
-          aria-label="Profile activity"
-          className={styles.profileStats}
-        >
+        <section aria-label="Profile activity" className={styles.profileStats}>
           <p style={{ backgroundColor: profileImageBackground }}>
             Level: -- <br /> Total XP: --
           </p>
@@ -144,6 +135,7 @@ export default function ProfileView({
         isOpen={settingsOpen}
         imageOptions={imageOptions}
         location={location ?? ''}
+        locationId={locationId ?? ''}
         onAvatarChange={chooseAvatar}
         onClose={closeSettings}
         onProfileDetailsSaved={handleProfileDetailsSaved}

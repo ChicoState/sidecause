@@ -4,8 +4,8 @@ import { auth } from '../../auth'
 import {
   validateDisplayName,
   validateProfileDescription,
-  validateProfileLocation,
 } from '../../lib/auth/validation'
+import { formatLocationLabel } from '../../lib/geomelon'
 import { prisma } from '../../lib/prisma'
 import type { DisplayNameFormState } from './form-state'
 import type { ProfileDetailsFormState } from './profile-details-form-state'
@@ -55,6 +55,7 @@ export async function updateProfileDetailsAction(
   formData: FormData,
 ): Promise<ProfileDetailsFormState> {
   const rawLocation = String(formData.get('location') ?? '')
+  const rawLocationId = String(formData.get('locationId') ?? '')
   const rawDescription = String(formData.get('description') ?? '')
   const values = {
     description: rawDescription.trim(),
@@ -71,20 +72,40 @@ export async function updateProfileDetailsAction(
       }
     }
 
-    const location = validateProfileLocation(rawLocation)
+    const selectedLocation = rawLocationId
+      ? await prisma.location.findUnique({ where: { id: rawLocationId } })
+      : null
+    if (rawLocationId && !selectedLocation) {
+      return {
+        error: 'Choose a location from the search results.',
+        success: '',
+        values,
+      }
+    }
+    if (rawLocation.trim() && !selectedLocation) {
+      return {
+        error: 'Choose a location from the search results.',
+        success: '',
+        values,
+      }
+    }
     const description = validateProfileDescription(rawDescription)
+    const location = selectedLocation
+      ? formatLocationLabel(selectedLocation)
+      : ''
     await prisma.user.update({
       where: { email: session.user.email },
       data: {
         description: description || null,
         location: location || null,
+        locationId: selectedLocation?.id ?? null,
       },
     })
 
     return {
       error: '',
       success: 'Profile details saved.',
-      values,
+      values: { description: description || '', location },
     }
   } catch (error) {
     return {

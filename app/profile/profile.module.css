@@ -311,6 +311,41 @@
   opacity: 0.65;
 }
 
+.locationCombobox {
+  position: relative;
+}
+
+.locationResults {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 0.25rem);
+  right: 0;
+  left: 0;
+  max-height: 12rem;
+  margin: 0;
+  padding: 0.25rem;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  background: #fffdf8;
+  list-style: none;
+}
+
+.locationResults button {
+  width: 100%;
+  padding: 0.5rem;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.locationResults button:hover,
+.locationResults button:focus-visible {
+  background: var(--accent-soft);
+}
+
 .settingError {
   margin-top: 0.75rem;
   color: #6e2020;

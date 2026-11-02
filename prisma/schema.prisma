@@ -7,14 +7,34 @@ datasource db {
   provider = "postgresql"
 }
 
+enum LocationKind {
+  CITY
+  REGION
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
   displayName  String
   location     String?
+  locationId   String?
+  profileLocation Location? @relation(fields: [locationId], references: [id], onDelete: SetNull)
   description  String?
   passwordHash String
   avatarId     String   @default("sprout")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  @@index([locationId])
+}
+
+model Location {
+  id             String       @id
+  kind           LocationKind
+  name           String
+  normalizedName String
+  regionName     String?
+  users          User[]
+
+  @@index([kind, normalizedName])
 }

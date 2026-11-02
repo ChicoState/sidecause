@@ -18,6 +18,7 @@ export default async function ProfilePage() {
       description: true,
       displayName: true,
       location: true,
+      locationId: true,
     },
   })
   const imageOptions = await getProfileImageOptions()
@@ -29,6 +30,7 @@ export default async function ProfilePage() {
       memberSince={user?.createdAt}
       name={user?.displayName ?? session.user.name}
       location={user?.location}
+      locationId={user?.locationId}
       description={user?.description}
     />
   )
