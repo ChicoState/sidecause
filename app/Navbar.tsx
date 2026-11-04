@@ -19,6 +19,9 @@ export default function Navbar({ displayName, session, avatar }: NavbarProps) {
           <Link href="/">SideCause</Link>
         </li>
         <li>
+          <Link href="/help">Help</Link>
+        </li>
+        <li>
           <Link href="/posts">Posts</Link>
         </li>
         {session?.user ? (

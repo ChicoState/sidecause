@@ -39,14 +39,22 @@ This repository contains the development foundation and initial App Router shell
    npm run docker:up
    ```
 
-5. Run the available local checks.
+5. Apply the local database migrations and, if desired, insert three repeatable
+   example bounties with local SVG pictures.
+
+   ```sh
+   npm run prisma:deploy
+   npm run db:seed:examples
+   ```
+
+6. Run the available local checks.
 
    ```sh
    npm run verify
    npm run test:smoke
    ```
 
-6. Stop services when finished. `docker:down` preserves local volumes; use `docker compose down --volumes` only when you intentionally want to discard local database and object-storage data.
+7. Stop services when finished. `docker:down` preserves local volumes; use `docker compose down --volumes` only when you intentionally want to discard local database and object-storage data.
 
    ```sh
    npm run docker:down
@@ -62,13 +70,15 @@ To install dependencies, start local services, and launch the development server
 
 ## Database migrations
 
-Prisma is configured for PostgreSQL and reads `DATABASE_URL` from `.env`. The initial account migration creates the `User` table with a unique email address and password hash. Once a model is approved, create and review a development migration with:
+Prisma is configured for PostgreSQL and reads `DATABASE_URL` from `.env`. The migrations create the account and bounty tables, including an optional picture reference on each bounty. Create and review a development migration with:
 
 ```sh
 npm run prisma:migrate -- --name describe_the_change
 ```
 
-Use `npm run prisma:deploy` only in a controlled deployment workflow against an approved target—never against production from a workstation.
+Use `npm run prisma:deploy` to apply reviewed migrations to the local development database. For a remote deployment, run it only in a controlled workflow against the approved target—never against production from a workstation.
+
+`npm run db:seed:examples` inserts or refreshes three local example bounties and a demo poster. It refuses database hosts other than localhost or the local Compose service, and can be rerun without duplicating the examples.
 
 ## CI and GitHub configuration
 

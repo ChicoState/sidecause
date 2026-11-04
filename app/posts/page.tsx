@@ -1,8 +1,10 @@
 import { PostsList } from './PostsList'
-import { samplePosts } from './post-data'
+import { getPublicPostCards } from './post-data'
 import styles from './posts.module.css'
 
-export default function PostsPage() {
+export default async function PostsPage() {
+  const posts = await getPublicPostCards()
+
   return (
     <main className={styles.postsPage}>
       <section className={styles.postsBoard} aria-labelledby="posts-title">
@@ -18,7 +20,7 @@ export default function PostsPage() {
           </button>
         </div>
         <div className={styles.listViewport}>
-          <PostsList posts={samplePosts} />
+          <PostsList posts={posts} />
         </div>
       </section>
     </main>

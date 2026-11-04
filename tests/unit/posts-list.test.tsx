@@ -14,8 +14,14 @@ describe('PostsList', () => {
             id: 'park-cleanup',
             title: 'Park cleanup',
             location: 'Bidwell Park',
+            imageUrl: null,
           },
-          { id: 'food-drive', title: 'Food drive', location: 'Downtown Chico' },
+          {
+            id: 'food-drive',
+            title: 'Food drive',
+            location: 'Downtown Chico',
+            imageUrl: null,
+          },
         ]}
       />,
     )
@@ -23,14 +29,19 @@ describe('PostsList', () => {
     expect(screen.getByText('Park cleanup')).toBeTruthy()
     expect(screen.getByText('Bidwell Park')).toBeTruthy()
     expect(screen.getByText('Food drive')).toBeTruthy()
+    expect(screen.getAllByRole('link', { name: /More details/ })).toHaveLength(
+      2,
+    )
     expect(
-      screen.getAllByRole('button', { name: 'View details' }),
-    ).toHaveLength(2)
+      screen
+        .getByRole('link', { name: 'More details about Park cleanup' })
+        .getAttribute('href'),
+    ).toBe('/posts/park-cleanup')
   })
 
   it('shows the empty state when no posts are available', () => {
     render(<PostsList posts={[]} />)
 
-    expect(screen.getByText('No posts')).toBeTruthy()
+    expect(screen.getByText('No tasks are available right now.')).toBeTruthy()
   })
 })

@@ -25,6 +25,8 @@ model User {
   xp           Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  postedBounties       Bounty[]          @relation("BountyPoster")
+  volunteerAttendances BountyVolunteer[]
 
   @@index([locationId])
 }
@@ -38,4 +40,94 @@ model Location {
   users          User[]
 
   @@index([kind, normalizedName])
+}
+
+enum BountyStatus {
+  OPEN
+  FULL
+  FINISHED
+  CANCELLED
+  EXPIRED
+}
+
+enum BountyDifficulty {
+  EASY
+  MEDIUM
+  NORMAL
+  HARD
+  EXTRA_HARD
+}
+
+enum RequirementLevel {
+  REQUIRED
+  RECOMMENDED
+}
+
+enum VolunteerAttendanceStatus {
+  JOINED
+  WITHDRAWN
+}
+
+model Bounty {
+  id                    String                       @id @default(cuid())
+  title                 String
+  description           String
+  locationLabel         String
+  imageUrl              String?
+  latitude              Decimal?                     @db.Decimal(9, 6)
+  longitude             Decimal?                     @db.Decimal(9, 6)
+  scheduledAt           DateTime
+  deadline              DateTime
+  maxVolunteers         Int
+  payPerVolunteer       Decimal                      @db.Decimal(10, 2)
+  difficulty            BountyDifficulty
+  status                BountyStatus                 @default(OPEN)
+  posterId              String
+  createdAt             DateTime                     @default(now())
+  updatedAt             DateTime                     @updatedAt
+  finishedAt            DateTime?
+  verifiedAt            DateTime?
+  cancellationReason    String?
+  poster                User                         @relation("BountyPoster", fields: [posterId], references: [id], onDelete: Restrict)
+  volunteerAttendances  BountyVolunteer[]
+  skillRequirements     BountySkillRequirement[]
+  equipmentRequirements BountyEquipmentRequirement[]
+
+  @@index([posterId])
+  @@index([status, deadline])
+  @@index([scheduledAt])
+}
+
+model BountyVolunteer {
+  bountyId    String
+  volunteerId String
+  status      VolunteerAttendanceStatus @default(JOINED)
+  joinedAt    DateTime                  @default(now())
+  withdrawnAt DateTime?
+  bounty      Bounty                    @relation(fields: [bountyId], references: [id], onDelete: Cascade)
+  volunteer   User                      @relation(fields: [volunteerId], references: [id], onDelete: Cascade)
+
+  @@id([bountyId, volunteerId])
+  @@index([volunteerId, status])
+  @@index([bountyId, status])
+}
+
+model BountySkillRequirement {
+  id       String           @id @default(cuid())
+  bountyId String
+  name     String
+  level    RequirementLevel
+  bounty   Bounty           @relation(fields: [bountyId], references: [id], onDelete: Cascade)
+
+  @@unique([bountyId, name])
+}
+
+model BountyEquipmentRequirement {
+  id       String           @id @default(cuid())
+  bountyId String
+  name     String
+  level    RequirementLevel
+  bounty   Bounty           @relation(fields: [bountyId], references: [id], onDelete: Cascade)
+
+  @@unique([bountyId, name])
 }
