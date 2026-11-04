@@ -30,6 +30,7 @@
     "verify": "npm run format:check && npm run lint && npm run typecheck && npm run coverage"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1161.0",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "glob": "^13.0.6",
