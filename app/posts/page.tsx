@@ -1,5 +1,5 @@
-import { PostsList } from './PostsList'
 import { getPublicPostCards } from './post-data'
+import { PostsBrowser } from './PostsBrowser'
 import styles from './posts.module.css'
 
 export default async function PostsPage() {
@@ -11,17 +11,7 @@ export default async function PostsPage() {
         <h1 className={styles.postsTitle} id="posts-title">
           Posts
         </h1>
-        <div className={styles.controls} aria-label="Post browsing controls">
-          <button disabled type="button">
-            Filters
-          </button>
-          <button disabled type="button">
-            Chico, CA
-          </button>
-        </div>
-        <div className={styles.listViewport}>
-          <PostsList posts={posts} />
-        </div>
+        <PostsBrowser posts={posts} />
       </section>
     </main>
   )
