@@ -88,6 +88,11 @@ integration tests.
 - [ ] An authenticated member can create a valid open bounty with a schedule,
       maximum capacity, per-volunteer pay, poster-selected difficulty, and
       skill/equipment requirements.
+- [ ] The posts page shows the create button to signed-in members.
+- [ ] The create form supports up to three skills and three equipment items,
+      each marked `REQUIRED` or `RECOMMENDED`, plus an optional image upload.
+- [ ] A successful create returns the member to `/posts` in the same tab, and
+      the new open bounty appears in the listing.
 - [ ] The post detail page displays the saved difficulty on a five-step scale
       between volunteer count and pay.
 - [ ] Visitors can browse a paginated list of `OPEN` bounties.

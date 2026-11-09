@@ -133,6 +133,41 @@
   color: var(--muted);
 }
 
+.createPostButton {
+  position: fixed;
+  right: max(1rem, calc((100vw - 90rem) / 2));
+  bottom: 2rem;
+  z-index: 2;
+  display: grid;
+  width: 6.25rem;
+  min-height: 6.25rem;
+  align-content: center;
+  justify-items: center;
+  gap: 0.125rem;
+  border-radius: 1rem;
+  color: #fffefa;
+  background: #52794b;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+}
+
+.createPostButton:hover {
+  background: #41653b;
+}
+
+.createPostButton:focus-visible {
+  outline: 3px solid #236e69;
+  outline-offset: 3px;
+}
+
+.createPostIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
 @media (min-width: 48rem) {
   .postsPage {
     padding: 3rem;
