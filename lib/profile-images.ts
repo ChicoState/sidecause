@@ -3,9 +3,9 @@ import path from 'node:path'
 
 export const builtInProfileImages = [
   { id: 'sprout', label: 'Sprout', symbol: '🌿', color: '#b4ee90' },
-  { id: 'deer', label: 'Deer', symbol: '🦌', color: '#e7c78b'},
-  { id: 'crow', label: 'Crow', symbol: '🐦‍⬛', color: '#c0bbd4'},
-  { id: 'dragon', label: 'Dragon', symbol: '🐉', color: '#a5e9a5'},
+  { id: 'deer', label: 'Deer', symbol: '🦌', color: '#e7c78b' },
+  { id: 'crow', label: 'Crow', symbol: '🐦‍⬛', color: '#c0bbd4' },
+  { id: 'dragon', label: 'Dragon', symbol: '🐉', color: '#a5e9a5' },
   { id: 'bee', label: 'Bee', symbol: '🐝', color: '#ecee90' },
   { id: 'earth', label: 'Earth', symbol: '🌎', color: '#a2a7e9' },
   { id: 'pick', label: 'Pickaxe', symbol: '⛏', color: '#c5c5c5' },
@@ -16,7 +16,11 @@ export const builtInProfileImages = [
   { id: 'bigfoot', label: 'Bigfoot', symbol: '🫈', color: '#4bd457' },
 ] as const
 
-const profileImageDirectory = path.join(process.cwd(), 'public', 'profile-images')
+const profileImageDirectory = path.join(
+  process.cwd(),
+  'public',
+  'profile-images',
+)
 const imageExtensionPattern = /\.(?:png|jpe?g|webp|gif|avif)$/i
 
 export type ProfileImageOption =

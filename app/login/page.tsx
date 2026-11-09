@@ -5,10 +5,10 @@ import { auth } from '../../auth'
 import { LoginForm } from './LoginForm'
 
 export default async function LoginPage() {
-    const session = await auth()
-    if (session?.user?.email) {
+  const session = await auth()
+  if (session?.user?.email) {
     redirect('/')
-    }
+  }
   return (
     <main className="account-page">
       <section className="account-panel" aria-labelledby="login-title">
