@@ -88,6 +88,14 @@ with active attendance on that bounty; withdrawing immediately revokes access.
 Email addresses, password hashes, and
 authentication/session data are never included in public responses.
 
+## Experience progression
+
+Members have a lifetime `xp` total stored on their account. Level is derived
+server-side from XP: level 1 starts at 0 XP, and each additional 100 XP adds
+one level. XP can only be awarded by server-side application services for
+authorized events; clients cannot choose a user or directly submit an XP
+award. The signed-in profile displays the member's current level and total XP.
+
 ## Application boundary and API contract
 
 Use the Next.js App Router only; `pages/` remains unused. Public reads remain

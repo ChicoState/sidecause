@@ -159,6 +159,22 @@ the full poster/volunteer workflow.
 - [ ] Review the API contract, migration, and private-data exposure before
       release planning.
 
+### Phase 4: Member progression
+
+#### Task 7: Track XP and derived levels
+
+**Acceptance criteria:**
+
+- [x] User accounts store a lifetime XP total defaulting to zero.
+- [x] The signed-in profile displays total XP and the derived level.
+- [x] Server-side callers can award positive XP atomically; clients cannot
+      submit arbitrary XP awards.
+
+**Verify:** Unit tests for level boundaries and award validation; Prisma schema
+validation and the normal verification suite.
+
+**Dependencies:** Task 2 and explicit approval for the account migration.
+
 ## Risks and mitigations
 
 | Risk                                 | Impact                 | Mitigation                                                                                                             |

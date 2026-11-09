@@ -1,13 +1,17 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { signOut } from '../auth'
+import type { ProfileImageOption } from '../lib/profile-images'
 
 import './Navbar.css'
 
 type NavbarProps = {
+  displayName?: string | null
   session: { user?: { name?: string | null } } | null
+  avatar?: ProfileImageOption
 }
 
-export default function Navbar({ session }: NavbarProps) {
+export default function Navbar({ displayName, session, avatar }: NavbarProps) {
   return (
     <nav>
       <ul>
@@ -23,7 +27,31 @@ export default function Navbar({ session }: NavbarProps) {
         {session?.user ? (
           <>
             <li aria-label="Signed in member">
-              <Link href="/">{session.user.name ?? 'Member'}</Link>
+              <Link className="navbar-profile" href="/profile">
+                <span
+                  aria-hidden="true"
+                  className="navbar-avatar"
+                  style={{
+                    backgroundColor:
+                      avatar && 'color' in avatar ? avatar.color : undefined,
+                  }}
+                >
+                  {avatar && 'imageUrl' in avatar ? (
+                    <Image
+                      alt=""
+                      height={32}
+                      src={avatar.imageUrl}
+                      unoptimized
+                      width={32}
+                    />
+                  ) : avatar && 'symbol' in avatar ? (
+                    avatar.symbol
+                  ) : (
+                    '🌿'
+                  )}
+                </span>
+                {displayName ?? session.user.name ?? 'Member'}
+              </Link>
             </li>
             <li>
               <form
