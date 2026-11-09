@@ -8,6 +8,7 @@ import {
   initialRegisterFormState,
   type RegisterFormState,
 } from '../../lib/auth/form-state'
+import { getSafePostReturnTo } from '../../lib/auth/return-to'
 import { assertWithinAuthRateLimit } from '../../lib/auth/rate-limit'
 import { hashPassword } from '../../lib/auth/password'
 import { validateRegistration } from '../../lib/auth/validation'
@@ -21,6 +22,7 @@ export async function registerAction(
     displayName: String(formData.get('displayName') ?? '').trim(),
     email: String(formData.get('email') ?? '').trim(),
   }
+  const returnTo = getSafePostReturnTo(formData.get('returnTo'))
   let input: { displayName: string; email: string; password: string }
 
   try {
@@ -68,7 +70,7 @@ export async function registerAction(
   }
 
   try {
-    await signIn('credentials', { email, password, redirectTo: '/' })
+    await signIn('credentials', { email, password, redirectTo: returnTo })
   } catch (error) {
     if (error instanceof AuthError) {
       return {

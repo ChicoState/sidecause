@@ -5,7 +5,7 @@ import { useActionState, useState } from 'react'
 import { initialLoginFormState } from '../../lib/auth/form-state'
 import { loginAction } from './actions'
 
-export function LoginForm() {
+export function LoginForm({ returnTo = '/' }: { returnTo?: string }) {
   const [state, formAction, isPending] = useActionState(
     loginAction,
     initialLoginFormState,
@@ -14,6 +14,7 @@ export function LoginForm() {
 
   return (
     <form action={formAction} className="account-form">
+      <input name="returnTo" type="hidden" value={returnTo} />
       {state.error && (
         <p className="form-error" role="alert">
           {state.error}
