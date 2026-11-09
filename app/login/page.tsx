@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { auth } from '../../auth'
 
 import { getSafePostReturnTo } from '../../lib/auth/return-to'
 import { LoginForm } from './LoginForm'
@@ -10,6 +12,11 @@ type LoginPageProps = {
 export default async function LoginPage({
   searchParams = Promise.resolve({}),
 }: LoginPageProps) {
+  const session = await auth()
+  if (session?.user?.email) {
+    redirect('/')
+  }
+
   const { returnTo: requestedReturnTo } = await searchParams
   const returnTo = getSafePostReturnTo(requestedReturnTo)
 

@@ -7,15 +7,39 @@ datasource db {
   provider = "postgresql"
 }
 
+enum LocationKind {
+  CITY
+  REGION
+}
+
 model User {
-  id                   String            @id @default(cuid())
-  email                String            @unique
-  displayName          String
-  passwordHash         String
-  createdAt            DateTime          @default(now())
-  updatedAt            DateTime          @updatedAt
+  id           String   @id @default(cuid())
+  email        String   @unique
+  displayName  String
+  location     String?
+  locationId   String?
+  profileLocation Location? @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  description  String?
+  passwordHash String
+  avatarId     String   @default("sprout")
+  xp           Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   postedBounties       Bounty[]          @relation("BountyPoster")
   volunteerAttendances BountyVolunteer[]
+
+  @@index([locationId])
+}
+
+model Location {
+  id             String       @id
+  kind           LocationKind
+  name           String
+  normalizedName String
+  regionName     String?
+  users          User[]
+
+  @@index([kind, normalizedName])
 }
 
 enum BountyStatus {

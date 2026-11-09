@@ -3,11 +3,13 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-const { loginAction, registerAction } = vi.hoisted(() => ({
+const { auth, loginAction, registerAction } = vi.hoisted(() => ({
+  auth: vi.fn().mockResolvedValue(null),
   loginAction: vi.fn(),
   registerAction: vi.fn(),
 }))
 
+vi.mock('../../auth', () => ({ auth }))
 vi.mock('../../app/login/actions', () => ({ loginAction }))
 vi.mock('../../app/register/actions', () => ({ registerAction }))
 

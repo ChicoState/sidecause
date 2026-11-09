@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { auth } from '../../auth'
 
 import { getSafePostReturnTo } from '../../lib/auth/return-to'
 import { RegisterForm } from './RegisterForm'
@@ -10,6 +12,11 @@ type RegisterPageProps = {
 export default async function RegisterPage({
   searchParams = Promise.resolve({}),
 }: RegisterPageProps) {
+  const session = await auth()
+  if (session?.user?.email) {
+    redirect('/')
+  }
+
   const { returnTo: requestedReturnTo } = await searchParams
   const returnTo = getSafePostReturnTo(requestedReturnTo)
 
