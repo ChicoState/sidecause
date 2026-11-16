@@ -20,7 +20,7 @@ afterEach(cleanup)
 
 describe('account page templates', () => {
   it('links the login page to account creation', async () => {
-    render(await LoginPage())
+    render(await LoginPage({}))
 
     expect(
       screen
@@ -30,7 +30,7 @@ describe('account page templates', () => {
   })
 
   it('links the account-creation page back to login', async () => {
-    render(await RegisterPage())
+    render(await RegisterPage({}))
 
     expect(
       screen.getByRole('link', { name: 'Log in' }).getAttribute('href'),
@@ -42,7 +42,7 @@ describe('account page templates', () => {
       error: 'The email address or password is incorrect.',
       values: { email: 'maya@example.com' },
     })
-    render(await LoginPage())
+    render(await LoginPage({}))
 
     fireEvent.change(screen.getByLabelText('Email address'), {
       target: { value: 'maya@example.com' },
@@ -65,7 +65,7 @@ describe('account page templates', () => {
         'An account already exists with this email address. Log in instead.',
       values: { displayName: 'Maya Chen', email: 'maya@example.com' },
     })
-    render(await RegisterPage())
+    render(await RegisterPage({}))
 
     fireEvent.change(screen.getByLabelText('Display name'), {
       target: { value: 'Maya Chen' },
