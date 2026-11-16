@@ -8,9 +8,10 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User'
-export type * from './models/Bounty'
-export type * from './models/BountyVolunteer'
-export type * from './models/BountySkillRequirement'
-export type * from './models/BountyEquipmentRequirement'
-export type * from './commonInputTypes'
+export type * from './models/User.ts'
+export type * from './models/Location.ts'
+export type * from './models/Bounty.ts'
+export type * from './models/BountyVolunteer.ts'
+export type * from './models/BountySkillRequirement.ts'
+export type * from './models/BountyEquipmentRequirement.ts'
+export type * from './commonInputTypes.ts'

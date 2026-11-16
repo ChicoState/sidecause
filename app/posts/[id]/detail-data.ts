@@ -1,3 +1,5 @@
+import { canViewBounty } from '../../../lib/bounty-visibility'
+
 export type PostRequirement = {
   name: string
   level: 'REQUIRED' | 'RECOMMENDED'
@@ -79,36 +81,33 @@ const databaseSource: PostDetailSource = {
       return null
     }
 
-    const now = new Date()
-    const viewerIsPoster = viewerId !== null && bounty.posterId === viewerId
     const viewerAttendance = bounty.volunteerAttendances[0]?.status ?? null
-    const viewerIsActiveAttendee = viewerAttendance === 'JOINED'
     const currentVolunteers = bounty._count.volunteerAttendances
-
-    const openAndAvailable =
-      bounty.status === 'OPEN' &&
-      bounty.deadline > now &&
-      currentVolunteers < bounty.maxVolunteers
-    const fullAndUnexpired = bounty.status === 'FULL' && bounty.deadline > now
-    const finished = bounty.status === 'FINISHED'
-    const restrictedViewer = viewerIsPoster || viewerIsActiveAttendee
-
     if (
-      !openAndAvailable &&
-      !(fullAndUnexpired && restrictedViewer) &&
-      !(finished && restrictedViewer)
+      !canViewBounty({
+        status: bounty.status,
+        deadline: bounty.deadline,
+        posterId: bounty.posterId,
+        viewerId,
+        viewerAttendance,
+        currentVolunteers,
+        maximumVolunteers: bounty.maxVolunteers,
+      })
     ) {
       return null
     }
 
-    const posterEmail = restrictedViewer
-      ? ((
-          await prisma.user.findUnique({
-            where: { id: bounty.posterId },
-            select: { email: true },
-          })
-        )?.email ?? null)
-      : null
+    const viewerIsPoster = viewerId !== null && bounty.posterId === viewerId
+    const viewerIsActiveAttendee = viewerAttendance === 'JOINED'
+    const posterEmail =
+      viewerIsPoster || viewerIsActiveAttendee
+        ? ((
+            await prisma.user.findUnique({
+              where: { id: bounty.posterId },
+              select: { email: true },
+            })
+          )?.email ?? null)
+        : null
 
     return {
       id: bounty.id,
