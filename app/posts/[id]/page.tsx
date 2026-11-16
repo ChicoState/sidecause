@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { auth } from '../../../auth'
 import { getAccessiblePostDetail, type PostDifficulty } from './detail-data'
+import { VolunteerAction } from './VolunteerAction'
 import styles from './detail.module.css'
 
 type PostDetailPageProps = {
@@ -16,7 +17,6 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const post = await getAccessiblePostDetail(id, session?.user?.id ?? null)
 
   if (!post) notFound()
-  const action = getPostAction(post.status, post.viewerAttendance)
   const statusClassName = {
     OPEN: styles.statusOpen,
     FULL: styles.statusFull,
@@ -114,13 +114,12 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
               </div>
             </dl>
 
-            <button
-              className={styles.signupButton}
-              disabled={action.disabled}
-              type="button"
-            >
-              {action.label}
-            </button>
+            <VolunteerAction
+              attendance={post.viewerAttendance}
+              bountyId={post.id}
+              signedIn={Boolean(session?.user?.id)}
+              status={post.status}
+            />
           </aside>
         </div>
       </article>
@@ -191,32 +190,6 @@ function RequirementList({
       )}
     </div>
   )
-}
-
-function getPostAction(
-  status: 'OPEN' | 'FULL' | 'FINISHED',
-  attendance: 'JOINED' | 'WITHDRAWN' | null,
-): { label: string; disabled: boolean } {
-  if (attendance === 'WITHDRAWN') {
-    return { label: 'Unenrolled', disabled: true }
-  }
-
-  if (status === 'FINISHED') {
-    return {
-      label: attendance === 'JOINED' ? 'Unenroll' : 'Sign up',
-      disabled: true,
-    }
-  }
-
-  if (status === 'FULL' && attendance !== 'JOINED') {
-    return { label: 'Sign up', disabled: true }
-  }
-
-  if (attendance === 'JOINED') {
-    return { label: 'Unenroll', disabled: false }
-  }
-
-  return { label: 'Sign up', disabled: false }
 }
 
 function formatStatus(status: 'OPEN' | 'FULL' | 'FINISHED'): string {
