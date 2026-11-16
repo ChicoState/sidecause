@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const LocationKind = {
+  CITY: 'CITY',
+  REGION: 'REGION'
+} as const
+
+export type LocationKind = (typeof LocationKind)[keyof typeof LocationKind]
+
+
 export const BountyStatus = {
   OPEN: 'OPEN',
   FULL: 'FULL',

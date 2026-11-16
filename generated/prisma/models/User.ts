@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.ts"
+import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
  * Model User
@@ -20,15 +20,30 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  xp: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  xp: number | null
 }
 
 export type UserMinAggregateOutputType = {
   id: string | null
   email: string | null
   displayName: string | null
+  location: string | null
+  locationId: string | null
+  description: string | null
   passwordHash: string | null
+  avatarId: string | null
+  xp: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -37,7 +52,12 @@ export type UserMaxAggregateOutputType = {
   id: string | null
   email: string | null
   displayName: string | null
+  location: string | null
+  locationId: string | null
+  description: string | null
   passwordHash: string | null
+  avatarId: string | null
+  xp: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,18 +66,36 @@ export type UserCountAggregateOutputType = {
   id: number
   email: number
   displayName: number
+  location: number
+  locationId: number
+  description: number
   passwordHash: number
+  avatarId: number
+  xp: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
+export type UserAvgAggregateInputType = {
+  xp?: true
+}
+
+export type UserSumAggregateInputType = {
+  xp?: true
+}
+
 export type UserMinAggregateInputType = {
   id?: true
   email?: true
   displayName?: true
+  location?: true
+  locationId?: true
+  description?: true
   passwordHash?: true
+  avatarId?: true
+  xp?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -66,7 +104,12 @@ export type UserMaxAggregateInputType = {
   id?: true
   email?: true
   displayName?: true
+  location?: true
+  locationId?: true
+  description?: true
   passwordHash?: true
+  avatarId?: true
+  xp?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -75,7 +118,12 @@ export type UserCountAggregateInputType = {
   id?: true
   email?: true
   displayName?: true
+  location?: true
+  locationId?: true
+  description?: true
   passwordHash?: true
+  avatarId?: true
+  xp?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -119,6 +167,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -149,6 +209,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -157,10 +219,17 @@ export type UserGroupByOutputType = {
   id: string
   email: string
   displayName: string
+  location: string | null
+  locationId: string | null
+  description: string | null
   passwordHash: string
+  avatarId: string
+  xp: number
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -187,9 +256,15 @@ export type UserWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   displayName?: Prisma.StringFilter<"User"> | string
+  location?: Prisma.StringNullableFilter<"User"> | string | null
+  locationId?: Prisma.StringNullableFilter<"User"> | string | null
+  description?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
+  avatarId?: Prisma.StringFilter<"User"> | string
+  xp?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  profileLocation?: Prisma.XOR<Prisma.LocationNullableScalarRelationFilter, Prisma.LocationWhereInput> | null
   postedBounties?: Prisma.BountyListRelationFilter
   volunteerAttendances?: Prisma.BountyVolunteerListRelationFilter
 }
@@ -198,9 +273,15 @@ export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarId?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  profileLocation?: Prisma.LocationOrderByWithRelationInput
   postedBounties?: Prisma.BountyOrderByRelationAggregateInput
   volunteerAttendances?: Prisma.BountyVolunteerOrderByRelationAggregateInput
 }
@@ -212,9 +293,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   displayName?: Prisma.StringFilter<"User"> | string
+  location?: Prisma.StringNullableFilter<"User"> | string | null
+  locationId?: Prisma.StringNullableFilter<"User"> | string | null
+  description?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
+  avatarId?: Prisma.StringFilter<"User"> | string
+  xp?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  profileLocation?: Prisma.XOR<Prisma.LocationNullableScalarRelationFilter, Prisma.LocationWhereInput> | null
   postedBounties?: Prisma.BountyListRelationFilter
   volunteerAttendances?: Prisma.BountyVolunteerListRelationFilter
 }, "id" | "email">
@@ -223,12 +310,19 @@ export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarId?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -238,7 +332,12 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   displayName?: Prisma.StringWithAggregatesFilter<"User"> | string
+  location?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  locationId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  description?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
+  avatarId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  xp?: Prisma.IntWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -247,9 +346,14 @@ export type UserCreateInput = {
   id?: string
   email: string
   displayName: string
+  location?: string | null
+  description?: string | null
   passwordHash: string
+  avatarId?: string
+  xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileLocation?: Prisma.LocationCreateNestedOneWithoutUsersInput
   postedBounties?: Prisma.BountyCreateNestedManyWithoutPosterInput
   volunteerAttendances?: Prisma.BountyVolunteerCreateNestedManyWithoutVolunteerInput
 }
@@ -258,7 +362,12 @@ export type UserUncheckedCreateInput = {
   id?: string
   email: string
   displayName: string
+  location?: string | null
+  locationId?: string | null
+  description?: string | null
   passwordHash: string
+  avatarId?: string
+  xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   postedBounties?: Prisma.BountyUncheckedCreateNestedManyWithoutPosterInput
@@ -269,9 +378,14 @@ export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileLocation?: Prisma.LocationUpdateOneWithoutUsersNestedInput
   postedBounties?: Prisma.BountyUpdateManyWithoutPosterNestedInput
   volunteerAttendances?: Prisma.BountyVolunteerUpdateManyWithoutVolunteerNestedInput
 }
@@ -280,7 +394,12 @@ export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   postedBounties?: Prisma.BountyUncheckedUpdateManyWithoutPosterNestedInput
@@ -291,7 +410,12 @@ export type UserCreateManyInput = {
   id?: string
   email: string
   displayName: string
+  location?: string | null
+  locationId?: string | null
+  description?: string | null
   passwordHash: string
+  avatarId?: string
+  xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -300,7 +424,11 @@ export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -309,7 +437,12 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -318,16 +451,30 @@ export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarId?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  xp?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarId?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -336,9 +483,28 @@ export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  locationId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarId?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  xp?: Prisma.SortOrder
+}
+
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -350,8 +516,62 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedManyWithoutProfileLocationInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileLocationInput, Prisma.UserUncheckedCreateWithoutProfileLocationInput> | Prisma.UserCreateWithoutProfileLocationInput[] | Prisma.UserUncheckedCreateWithoutProfileLocationInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileLocationInput | Prisma.UserCreateOrConnectWithoutProfileLocationInput[]
+  createMany?: Prisma.UserCreateManyProfileLocationInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutProfileLocationInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileLocationInput, Prisma.UserUncheckedCreateWithoutProfileLocationInput> | Prisma.UserCreateWithoutProfileLocationInput[] | Prisma.UserUncheckedCreateWithoutProfileLocationInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileLocationInput | Prisma.UserCreateOrConnectWithoutProfileLocationInput[]
+  createMany?: Prisma.UserCreateManyProfileLocationInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutProfileLocationNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileLocationInput, Prisma.UserUncheckedCreateWithoutProfileLocationInput> | Prisma.UserCreateWithoutProfileLocationInput[] | Prisma.UserUncheckedCreateWithoutProfileLocationInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileLocationInput | Prisma.UserCreateOrConnectWithoutProfileLocationInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutProfileLocationInput | Prisma.UserUpsertWithWhereUniqueWithoutProfileLocationInput[]
+  createMany?: Prisma.UserCreateManyProfileLocationInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutProfileLocationInput | Prisma.UserUpdateWithWhereUniqueWithoutProfileLocationInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutProfileLocationInput | Prisma.UserUpdateManyWithWhereWithoutProfileLocationInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutProfileLocationNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileLocationInput, Prisma.UserUncheckedCreateWithoutProfileLocationInput> | Prisma.UserCreateWithoutProfileLocationInput[] | Prisma.UserUncheckedCreateWithoutProfileLocationInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileLocationInput | Prisma.UserCreateOrConnectWithoutProfileLocationInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutProfileLocationInput | Prisma.UserUpsertWithWhereUniqueWithoutProfileLocationInput[]
+  createMany?: Prisma.UserCreateManyProfileLocationInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutProfileLocationInput | Prisma.UserUpdateWithWhereUniqueWithoutProfileLocationInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutProfileLocationInput | Prisma.UserUpdateManyWithWhereWithoutProfileLocationInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
 export type UserCreateNestedOneWithoutPostedBountiesInput = {
@@ -382,13 +602,91 @@ export type UserUpdateOneRequiredWithoutVolunteerAttendancesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVolunteerAttendancesInput, Prisma.UserUpdateWithoutVolunteerAttendancesInput>, Prisma.UserUncheckedUpdateWithoutVolunteerAttendancesInput>
 }
 
+export type UserCreateWithoutProfileLocationInput = {
+  id?: string
+  email: string
+  displayName: string
+  location?: string | null
+  description?: string | null
+  passwordHash: string
+  avatarId?: string
+  xp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  postedBounties?: Prisma.BountyCreateNestedManyWithoutPosterInput
+  volunteerAttendances?: Prisma.BountyVolunteerCreateNestedManyWithoutVolunteerInput
+}
+
+export type UserUncheckedCreateWithoutProfileLocationInput = {
+  id?: string
+  email: string
+  displayName: string
+  location?: string | null
+  description?: string | null
+  passwordHash: string
+  avatarId?: string
+  xp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  postedBounties?: Prisma.BountyUncheckedCreateNestedManyWithoutPosterInput
+  volunteerAttendances?: Prisma.BountyVolunteerUncheckedCreateNestedManyWithoutVolunteerInput
+}
+
+export type UserCreateOrConnectWithoutProfileLocationInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileLocationInput, Prisma.UserUncheckedCreateWithoutProfileLocationInput>
+}
+
+export type UserCreateManyProfileLocationInputEnvelope = {
+  data: Prisma.UserCreateManyProfileLocationInput | Prisma.UserCreateManyProfileLocationInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserUpsertWithWhereUniqueWithoutProfileLocationInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProfileLocationInput, Prisma.UserUncheckedUpdateWithoutProfileLocationInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileLocationInput, Prisma.UserUncheckedCreateWithoutProfileLocationInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutProfileLocationInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProfileLocationInput, Prisma.UserUncheckedUpdateWithoutProfileLocationInput>
+}
+
+export type UserUpdateManyWithWhereWithoutProfileLocationInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutProfileLocationInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringFilter<"User"> | string
+  displayName?: Prisma.StringFilter<"User"> | string
+  location?: Prisma.StringNullableFilter<"User"> | string | null
+  locationId?: Prisma.StringNullableFilter<"User"> | string | null
+  description?: Prisma.StringNullableFilter<"User"> | string | null
+  passwordHash?: Prisma.StringFilter<"User"> | string
+  avatarId?: Prisma.StringFilter<"User"> | string
+  xp?: Prisma.IntFilter<"User"> | number
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+}
+
 export type UserCreateWithoutPostedBountiesInput = {
   id?: string
   email: string
   displayName: string
+  location?: string | null
+  description?: string | null
   passwordHash: string
+  avatarId?: string
+  xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileLocation?: Prisma.LocationCreateNestedOneWithoutUsersInput
   volunteerAttendances?: Prisma.BountyVolunteerCreateNestedManyWithoutVolunteerInput
 }
 
@@ -396,7 +694,12 @@ export type UserUncheckedCreateWithoutPostedBountiesInput = {
   id?: string
   email: string
   displayName: string
+  location?: string | null
+  locationId?: string | null
+  description?: string | null
   passwordHash: string
+  avatarId?: string
+  xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   volunteerAttendances?: Prisma.BountyVolunteerUncheckedCreateNestedManyWithoutVolunteerInput
@@ -422,9 +725,14 @@ export type UserUpdateWithoutPostedBountiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileLocation?: Prisma.LocationUpdateOneWithoutUsersNestedInput
   volunteerAttendances?: Prisma.BountyVolunteerUpdateManyWithoutVolunteerNestedInput
 }
 
@@ -432,7 +740,12 @@ export type UserUncheckedUpdateWithoutPostedBountiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   volunteerAttendances?: Prisma.BountyVolunteerUncheckedUpdateManyWithoutVolunteerNestedInput
@@ -442,9 +755,14 @@ export type UserCreateWithoutVolunteerAttendancesInput = {
   id?: string
   email: string
   displayName: string
+  location?: string | null
+  description?: string | null
   passwordHash: string
+  avatarId?: string
+  xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileLocation?: Prisma.LocationCreateNestedOneWithoutUsersInput
   postedBounties?: Prisma.BountyCreateNestedManyWithoutPosterInput
 }
 
@@ -452,7 +770,12 @@ export type UserUncheckedCreateWithoutVolunteerAttendancesInput = {
   id?: string
   email: string
   displayName: string
+  location?: string | null
+  locationId?: string | null
+  description?: string | null
   passwordHash: string
+  avatarId?: string
+  xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   postedBounties?: Prisma.BountyUncheckedCreateNestedManyWithoutPosterInput
@@ -478,9 +801,14 @@ export type UserUpdateWithoutVolunteerAttendancesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileLocation?: Prisma.LocationUpdateOneWithoutUsersNestedInput
   postedBounties?: Prisma.BountyUpdateManyWithoutPosterNestedInput
 }
 
@@ -488,10 +816,71 @@ export type UserUncheckedUpdateWithoutVolunteerAttendancesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   postedBounties?: Prisma.BountyUncheckedUpdateManyWithoutPosterNestedInput
+}
+
+export type UserCreateManyProfileLocationInput = {
+  id?: string
+  email: string
+  displayName: string
+  location?: string | null
+  description?: string | null
+  passwordHash: string
+  avatarId?: string
+  xp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type UserUpdateWithoutProfileLocationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  postedBounties?: Prisma.BountyUpdateManyWithoutPosterNestedInput
+  volunteerAttendances?: Prisma.BountyVolunteerUpdateManyWithoutVolunteerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProfileLocationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  postedBounties?: Prisma.BountyUncheckedUpdateManyWithoutPosterNestedInput
+  volunteerAttendances?: Prisma.BountyVolunteerUncheckedUpdateManyWithoutVolunteerNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutProfileLocationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.StringFieldUpdateOperationsInput | string
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -538,9 +927,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   email?: boolean
   displayName?: boolean
+  location?: boolean
+  locationId?: boolean
+  description?: boolean
   passwordHash?: boolean
+  avatarId?: boolean
+  xp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profileLocation?: boolean | Prisma.User$profileLocationArgs<ExtArgs>
   postedBounties?: boolean | Prisma.User$postedBountiesArgs<ExtArgs>
   volunteerAttendances?: boolean | Prisma.User$volunteerAttendancesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -550,41 +945,64 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   email?: boolean
   displayName?: boolean
+  location?: boolean
+  locationId?: boolean
+  description?: boolean
   passwordHash?: boolean
+  avatarId?: boolean
+  xp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profileLocation?: boolean | Prisma.User$profileLocationArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   displayName?: boolean
+  location?: boolean
+  locationId?: boolean
+  description?: boolean
   passwordHash?: boolean
+  avatarId?: boolean
+  xp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profileLocation?: boolean | Prisma.User$profileLocationArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
   email?: boolean
   displayName?: boolean
+  location?: boolean
+  locationId?: boolean
+  description?: boolean
   passwordHash?: boolean
+  avatarId?: boolean
+  xp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "displayName" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "displayName" | "location" | "locationId" | "description" | "passwordHash" | "avatarId" | "xp" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  profileLocation?: boolean | Prisma.User$profileLocationArgs<ExtArgs>
   postedBounties?: boolean | Prisma.User$postedBountiesArgs<ExtArgs>
   volunteerAttendances?: boolean | Prisma.User$volunteerAttendancesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  profileLocation?: boolean | Prisma.User$profileLocationArgs<ExtArgs>
+}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  profileLocation?: boolean | Prisma.User$profileLocationArgs<ExtArgs>
+}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    profileLocation: Prisma.$LocationPayload<ExtArgs> | null
     postedBounties: Prisma.$BountyPayload<ExtArgs>[]
     volunteerAttendances: Prisma.$BountyVolunteerPayload<ExtArgs>[]
   }
@@ -592,7 +1010,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     email: string
     displayName: string
+    location: string | null
+    locationId: string | null
+    description: string | null
     passwordHash: string
+    avatarId: string
+    xp: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -989,6 +1412,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  profileLocation<T extends Prisma.User$profileLocationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileLocationArgs<ExtArgs>>): Prisma.Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   postedBounties<T extends Prisma.User$postedBountiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postedBountiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BountyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   volunteerAttendances<T extends Prisma.User$volunteerAttendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$volunteerAttendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BountyVolunteerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1023,7 +1447,12 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly displayName: Prisma.FieldRef<"User", 'String'>
+  readonly location: Prisma.FieldRef<"User", 'String'>
+  readonly locationId: Prisma.FieldRef<"User", 'String'>
+  readonly description: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
+  readonly avatarId: Prisma.FieldRef<"User", 'String'>
+  readonly xp: Prisma.FieldRef<"User", 'Int'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -1280,6 +1709,10 @@ export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1350,6 +1783,10 @@ export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Users to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1416,6 +1853,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.profileLocation
+ */
+export type User$profileLocationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Location
+   */
+  select?: Prisma.LocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Location
+   */
+  omit?: Prisma.LocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LocationInclude<ExtArgs> | null
+  where?: Prisma.LocationWhereInput
 }
 
 /**

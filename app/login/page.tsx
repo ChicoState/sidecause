@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { auth } from '../../auth'
 
 import { getSafePostReturnTo } from '../../lib/auth/return-to'
 import { LoginForm } from './LoginForm'
