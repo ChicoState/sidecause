@@ -12,6 +12,11 @@ type RegisterPageProps = {
 export default async function RegisterPage({
   searchParams = Promise.resolve({}),
 }: RegisterPageProps) {
+  const session = await auth()
+  if (session?.user?.email) {
+    redirect('/')
+  }
+
   const { returnTo: requestedReturnTo } = await searchParams
   const returnTo = getSafePostReturnTo(requestedReturnTo)
 
