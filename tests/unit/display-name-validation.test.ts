@@ -8,7 +8,9 @@ import {
 
 describe('validateDisplayName', () => {
   it('trims and accepts display names up to 30 characters', () => {
-    const displayName = validateDisplayName('  Community Garden Team Leaders!  ')
+    const displayName = validateDisplayName(
+      '  Community Garden Team Leaders!  ',
+    )
 
     expect(displayName).toBe('Community Garden Team Leaders!')
     expect(displayName).toHaveLength(30)
