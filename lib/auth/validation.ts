@@ -1,6 +1,40 @@
 const registrationError =
   'Please enter a display name, valid email address, and password of at least 8 characters.'
 
+const displayNameError = 'Display name must be between 1 and 30 characters.'
+const locationError = 'Location must be 100 characters or fewer.'
+const descriptionError = 'Description must be 500 characters or fewer.'
+
+export function validateDisplayName(value: string): string {
+  const displayName = value.trim()
+
+  if (displayName.length < 1 || displayName.length > 30) {
+    throw new Error(displayNameError)
+  }
+
+  return displayName
+}
+
+export function validateProfileLocation(value: string): string {
+  const location = value.trim()
+
+  if (location.length > 100) {
+    throw new Error(locationError)
+  }
+
+  return location
+}
+
+export function validateProfileDescription(value: string): string {
+  const description = value.trim()
+
+  if (description.length > 120) {
+    throw new Error(descriptionError)
+  }
+
+  return description
+}
+
 export type RegistrationInput = {
   displayName: string
   email: string
@@ -10,13 +44,16 @@ export type RegistrationInput = {
 export function validateRegistration(
   input: RegistrationInput,
 ): RegistrationInput {
-  const displayName = input.displayName.trim()
+  let displayName: string
+  try {
+    displayName = validateDisplayName(input.displayName)
+  } catch {
+    throw new Error(registrationError)
+  }
   const email = input.email.trim().toLowerCase()
   const password = input.password
 
   if (
-    displayName.length < 1 ||
-    displayName.length > 80 ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
     email.length > 254 ||
     password.length < 8 ||

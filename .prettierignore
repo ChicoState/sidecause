@@ -3,6 +3,7 @@
 .github/ISSUE_TEMPLATE/
 .next/
 coverage/
+data/
 infrastructure_plan.md
 node_modules/
 package-lock.json

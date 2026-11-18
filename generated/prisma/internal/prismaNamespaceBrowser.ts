@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models'
-export type * from './prismaNamespace'
+export type * from '../models.ts'
+export type * from './prismaNamespace.ts'
 
 export const Decimal = runtime.Decimal
 
@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Location: 'Location',
   Bounty: 'Bounty',
   BountyVolunteer: 'BountyVolunteer',
   BountySkillRequirement: 'BountySkillRequirement',
@@ -78,12 +79,28 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   displayName: 'displayName',
+  location: 'location',
+  locationId: 'locationId',
+  description: 'description',
   passwordHash: 'passwordHash',
+  avatarId: 'avatarId',
+  xp: 'xp',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const LocationScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  name: 'name',
+  normalizedName: 'normalizedName',
+  regionName: 'regionName'
+} as const
+
+export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
 
 
 export const BountyScalarFieldEnum = {

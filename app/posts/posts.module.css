@@ -16,10 +16,177 @@
 }
 
 .controls {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
   margin: 1.25rem 0;
+}
+
+.filterControl {
+  position: relative;
+}
+
+.filterButton,
+.filterClose,
+.clearButton,
+.applyButton {
+  font: inherit;
+  cursor: pointer;
+}
+
+.filterButton {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--canvas);
+  text-align: left;
+}
+
+.filterButton:hover,
+.filterButton[aria-expanded='true'] {
+  background: var(--accent-soft);
+}
+
+.filterPopover {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: min(32rem, calc(200% + 0.75rem));
+  padding: 1rem;
+  border: 1px solid var(--ink);
+  background: #fffdf8;
+  box-shadow: 0.4rem 0.4rem 0 var(--accent-soft);
+}
+
+.filterHeader {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.filterHeader h2 {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.filterHeader p {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.filterClose {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: var(--canvas);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.filterFields {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.filterField,
+.filterFieldset {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.filterField label,
+.filterFieldset legend {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.filterField input,
+.filterField select {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  background: #fffefa;
+  font: inherit;
+}
+
+.filterFieldset {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.filterFieldset legend {
+  grid-column: 1 / -1;
+}
+
+.filterFieldset label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.filterFieldset input {
+  accent-color: var(--accent);
+}
+
+.filterActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.clearButton,
+.applyButton {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 0;
+  font-weight: 700;
+}
+
+.clearButton {
+  color: var(--ink);
+  background: transparent;
+  border-color: transparent;
+}
+
+.applyButton {
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+
+.filterButton:focus-visible,
+.filterClose:focus-visible,
+.filterField input:focus-visible,
+.filterField select:focus-visible,
+.filterFieldset input:focus-visible,
+.clearButton:focus-visible,
+.applyButton:focus-visible {
+  outline: 3px solid #236e69;
+  outline-offset: 3px;
 }
 
 .controls button {
@@ -39,6 +206,43 @@
 .controls button:disabled {
   cursor: not-allowed;
   opacity: 1;
+}
+
+.activeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: -0.5rem 0 1.25rem;
+}
+
+.filterChip,
+.clearFiltersButton {
+  min-height: 2rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--canvas);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.filterChip:hover,
+.clearFiltersButton:hover {
+  background: var(--accent-soft);
+}
+
+.clearFiltersButton {
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
+.filterChip:focus-visible,
+.clearFiltersButton:focus-visible {
+  outline: 3px solid #236e69;
+  outline-offset: 3px;
 }
 
 .listViewport {
