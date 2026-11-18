@@ -33,7 +33,7 @@ This repository contains the development foundation and initial App Router shell
    npm ci
    ```
 
-4. Start local PostgreSQL on `5432` and AIStor on `9000` (console `9001`).
+4. Start local PostgreSQL on host port `5433` and AIStor on `9000` (console `9001`). PostgreSQL listens on `5432` inside Compose; host port `5433` avoids collisions with other local databases.
 
    ```sh
    npm run docker:up
@@ -89,7 +89,7 @@ Dependabot checks npm, Docker, and GitHub Actions dependencies weekly. Releases 
 ## Troubleshooting
 
 - **`npm ci` rejects the lockfile:** use Node `26.8.2` and npm 11, then retry without editing `package-lock.json`.
-- **A local port is occupied:** free or remap port `5432`, `9000`, or `9001` before starting Compose. Update `.env` if you remap a service used by application code.
+- **A local port is occupied:** free or remap host port `5433`, `9000`, or `9001` before starting Compose. Update `.env` if you remap a service used by application code.
 - **Docker permission/daemon error:** start Docker Desktop (or the Docker daemon) and ensure your account can run `docker compose`.
 - **Prisma reports `DATABASE_URL` missing:** copy `.env.example` to `.env`, then run the command from the repository root.
 
