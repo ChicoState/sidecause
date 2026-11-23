@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1161.0",
-    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.0",
     "glob": "^13.0.6",
     "next": "^16.3.5",
